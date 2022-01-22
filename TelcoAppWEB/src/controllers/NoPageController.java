@@ -25,20 +25,18 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 /**
  * Servlet implementation class HomepageController
  */
-@WebServlet("/home")
-public class HomepageController extends HttpServlet {
-	 
+@WebServlet("")
+public class NoPageController extends HttpServlet { 
+	
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
-	@EJB(name = "services/ApiService")
-	private ApiService apiService;
 
-	public HomepageController() {
+	public NoPageController() {
 		super();
-		// TODO Auto-generated constructor stub 
+		// TODO Auto-generated constructor stub
 	}
-	 
-	public void init() throws ServletException {  
+	
+	public void init() throws ServletException {
 		ServletContext servletContext = getServletContext();
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
 		templateResolver.setTemplateMode(TemplateMode.HTML);
@@ -50,26 +48,13 @@ public class HomepageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException { 
 		
-		User loggedInUser = null;
-		HttpSession session = request.getSession();
-		if (session.getAttribute("user") != null) { 
-			loggedInUser = (User)session.getAttribute("user"); 
-		} 
-		
-		List<TelcoPackage> packages = apiService.getListOfServicePackages();
-
-		String path = "/index.html";
-		ServletContext servletContext = getServletContext();
-		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		ctx.setVariable("packages", packages);
-		ctx.setVariable("loggedInUser", loggedInUser);   
-		
-		templateEngine.process(path, ctx, response.getWriter());
+		response.sendRedirect("/TelcoAppWEB/home"); 
+		return; 
 
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		doGet(request, response);
 	}

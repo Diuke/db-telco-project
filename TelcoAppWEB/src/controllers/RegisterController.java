@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
@@ -16,23 +15,32 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.thymeleaf.TemplateEngine;
+
+import model.*;
+import services.UserService;
+
+import java.util.HashMap;
+import java.util.List;
+import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import model.User;
 import exceptions.CredentialsException;
-import services.UserService;
 
-@WebServlet("/CheckLogin")
-public class CheckLogin extends HttpServlet {
+/**
+ * Servlet implementation class GoToLoginPage
+ */
+@WebServlet("/Register")
+public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	@EJB(name = "services/UserService")
-	private UserService usrService;
+	private UserService usrService; 
 
-	public CheckLogin() {
+	public RegisterController() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public void init() throws ServletException {
@@ -44,9 +52,25 @@ public class CheckLogin extends HttpServlet {
 		templateResolver.setSuffix(".html");
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") != null) {
+			response.sendRedirect("/TelcoAppWEB/home"); 
+			return;
+		} 
+
+		String path = "/WEB-INF/register.html";
+		ServletContext servletContext = getServletContext();
+		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale()); 
+		ctx.setVariable("hasLogin", false);
+		templateEngine.process(path, ctx, response.getWriter());
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
 		// obtain and escape params
@@ -64,64 +88,26 @@ public class CheckLogin extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
 			return;
 		}
-		User user = null;
-		try {
-			// query db to authenticate for user
-			user = usrService.checkCredentials(username, password);
-		} catch (CredentialsException | NonUniqueResultException e) {
-			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");
-			return;
-		}
-
-		// If the user exists, add info to the session and go to home page, otherwise
-		// show login page with error message
-
+		
+		boolean userCreated = usrService.registerUser(username, password);
 		String path;
-		if (user == null) {
-			ServletContext servletContext = getServletContext();
+		if(!userCreated) {
+			ServletContext servletContext = getServletContext(); 
 			final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-			ctx.setVariable("errorMsg", "Incorrect username or password");
-			path = "/login.html";
+			ctx.setVariable("errorMsg", "Could not create user, try again.");
+			ctx.setVariable("hasLogin", false);
+			path = "/WEB-INF/register.html";
 			templateEngine.process(path, ctx, response.getWriter());
 		} else {
-			//QueryService qService = null;
-			try {
-				// Get the Initial Context for the JNDI lookup for a local EJB
-				InitialContext ic = new InitialContext();
-				// Retrieve the EJB using JNDI lookup
-				//qService = (QueryService) ic.lookup("java:/openejb/local/QueryServiceLocalBean");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			session.setAttribute("user", user);
-			
-			System.out.println(session.getAttribute("user"));
-			
-			String goTo = (String)session.getAttribute("goto");
-			HashMap<String, String> params = (HashMap<String, String>)session.getAttribute("gotoParams");
-			
-			if(goTo == null) {
-				response.sendRedirect("/TelcoAppWEB/home"); 
-				return;
-			} else {
-				String redirect = "/TelcoAppWEB/" + goTo;
-				if(params != null) {
-					redirect += "?";
-					for(String p: params.keySet()) {
-						redirect += p.toString() + "=" + params.get(p) + "&";
-					}
-				}
-				session.removeAttribute("goto");
-				session.removeAttribute("gotoParams");
-				response.sendRedirect(redirect);
-				return;
-			}
-			
+			ServletContext servletContext = getServletContext();
+			final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+			ctx.setVariable("successMsg", "User registered successfuly!");
+			ctx.setVariable("hasLogin", true);
+			path = "/WEB-INF/register.html";
+			templateEngine.process(path, ctx, response.getWriter());
 		}
-
+		
+		
 	}
 
-	public void destroy() {
-	}
 }

@@ -33,5 +33,20 @@ public class UserService {
 		throw new NonUniqueResultException("More than one user registered with same credentials");
 
 	}
+	
+	public boolean registerUser(String username, String password) { 
+		try {
+			User newUser = new User();
+			newUser.setUsername(username);
+			newUser.setPassword(password);
+			newUser.setRole(1); //new normal user
+			em.persist(newUser);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 
 }
