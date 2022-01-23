@@ -59,15 +59,15 @@ public class ConfirmController extends HttpServlet {
 		
 		//let queryParams = "?periodId=" + this.selectedPeriodId + "&products=" + productsQueryParam + "&package=" + this.packageId;
 		if (request.getParameterMap().containsKey("periodId") && request.getParameter("periodId") != "" && !request.getParameter("periodId").isEmpty()) {
-			periodId = Integer.parseInt(request.getParameter("periodId"));
+			periodId = Integer.parseInt(request.getParameter("periodId"));   
 		}
-		
+		 
 		if (request.getParameterMap().containsKey("startingDate") && request.getParameter("startingDate") != "" && !request.getParameter("startingDate").isEmpty()) {
 			startingDate = request.getParameter("startingDate").toString();
 		}
 		
 		if (request.getParameterMap().containsKey("package") && request.getParameter("package") != "" && !request.getParameter("package").isEmpty()) {
-			packageId = Integer.parseInt(request.getParameter("package"));
+			packageId = Integer.parseInt(request.getParameter("package")); 
 		}
 		
 		String productString = "";
@@ -76,7 +76,7 @@ public class ConfirmController extends HttpServlet {
 			String[] productSplit = productString.split(",");
 			productList = new ArrayList<Integer>();
 			for(String s: productSplit) {
-				productList.add(Integer.parseInt(s));
+				productList.add(Integer.parseInt(s)); 
 			}
 		}
 		

@@ -13,8 +13,11 @@ import java.util.List;
 @Entity
 @Table(name = "Order", schema = "telco_app_db")
 @NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
+@NamedQuery(name="Order.getByUserId", query="SELECT o FROM Order o WHERE o.user.userId = ?1 ORDER BY o.id DESC")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
+	public static final int PAID = 1;
+	public static final int PENDING = 0;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -26,8 +29,8 @@ public class Order implements Serializable {
 
 	private int status;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="suscription_start_date")
+	@Temporal(TemporalType.DATE)
+	@Column(name="suscription_start_date") 
 	private Date suscriptionStartDate;
 
 	private float total;

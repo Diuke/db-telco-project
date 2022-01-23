@@ -25,15 +25,15 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 /**
  * Servlet implementation class HomepageController
  */
-@WebServlet("/home")
-public class HomepageController extends HttpServlet {
+@WebServlet("/orders")
+public class OrdersController extends HttpServlet {
 	 
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	@EJB(name = "services/ApiService")
 	private ApiService apiService;
 
-	public HomepageController() {
+	public OrdersController() {
 		super();
 		// TODO Auto-generated constructor stub  
 	}
@@ -48,23 +48,30 @@ public class HomepageController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {  
+			throws ServletException, IOException { 
 		
 		User loggedInUser = null;
-		HttpSession session = request.getSession();  
+		HttpSession session = request.getSession();
 		if (session.getAttribute("user") != null) { 
 			loggedInUser = (User)session.getAttribute("user"); 
 		} 
 		
-		List<TelcoPackage> packages = apiService.getListOfServicePackages();  
+		if(loggedInUser == null) {
+			response.sendRedirect("/TelcoAppWEB/home");  
+			return;  
+		}
+		
+		List<Order> userOrders = apiService.getListOfOrdersByUser(loggedInUser);   
 
-		String path = "/index.html";
+		System.out.println(userOrders);
+		System.out.println(userOrders.size()); 
+		String path = "/WEB-INF/orders.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		ctx.setVariable("packages", packages);
+		ctx.setVariable("userOrders", userOrders);
 		ctx.setVariable("loggedInUser", loggedInUser);   
-		  
-		templateEngine.process(path, ctx, response.getWriter()); 
+		
+		templateEngine.process(path, ctx, response.getWriter());
 
 
 	}

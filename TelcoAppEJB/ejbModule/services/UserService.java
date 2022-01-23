@@ -28,7 +28,7 @@ public class UserService {
 		}
 		if (uList.isEmpty())
 			return null;
-		else if (uList.size() == 1)
+		else if (uList.size() == 1) 
 			return uList.get(0);
 		throw new NonUniqueResultException("More than one user registered with same credentials");
 

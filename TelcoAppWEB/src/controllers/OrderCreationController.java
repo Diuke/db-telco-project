@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.thymeleaf.TemplateEngine;
 
@@ -47,6 +48,11 @@ public class OrderCreationController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		User loggedInUser = null;
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") != null) { 
+			loggedInUser = (User)session.getAttribute("user"); 
+		} 
 		
 		Integer userId = null;
 		Integer packageId = null;
@@ -73,21 +79,23 @@ public class OrderCreationController extends HttpServlet {
 		}
 		if (request.getParameterMap().containsKey("productIds") && request.getParameter("productIds") != "" && !request.getParameter("productIds").isEmpty()) {
 			productIds = request.getParameter("productIds").toString();
-		}
+		} 
 		
-		boolean orderCreated = apiService.createOrder(userId, packageId, periodId, total, startingDate, productIds, true);
+		int orderCreated = apiService.createOrder(userId, packageId, periodId, total, startingDate, productIds);
 		
 		String message = "";
-		if(orderCreated) {
+		if(orderCreated != -1) {
 			message = "ORDER CREATED";
 		} else {
-			message = "Order created - but payment failed. Retry your payment later.";
+			message = "THERE WAS AN ERROR! ORDER NOT CREATED!";
 		}
 
 		String path = "/WEB-INF/order.html";
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		ctx.setVariable("message", message); 
+		ctx.setVariable("orderId", orderCreated);
+		ctx.setVariable("loggedInUser", loggedInUser);   
 		templateEngine.process(path, ctx, response.getWriter());
 
 	}

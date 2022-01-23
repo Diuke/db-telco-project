@@ -9,15 +9,22 @@
 <title>TELCO APP</title>
 </head>
 <body> 
+
 	<div class="container" id="buyApp">
 		<div class="row mt-2 mb-5">
-			<div class="col-10">
+			<div class="col-8">
 				<a th:href="@{/home}"><h1>WinbTres</h1></a>
 			</div>
 			
-			<div class="col-2">
+			<div class="col-4">
 				<a th:if="${loggedInUser == null}" th:href="@{/Login}">Login</a>
+				
 				<span th:if="${loggedInUser != null}" th:text="${'Welcome ' + loggedInUser.getUsername()}"></span>
+				
+				<span th:if="${loggedInUser != null}" class="px-1">|</span>
+				<a th:if="${loggedInUser != null}" th:href="@{/orders}">My orders</a>
+				<span th:if="${loggedInUser != null}" class="px-1">|</span>
+				
 				<a th:if="${loggedInUser != null}" th:href="@{/Logout}">Logout</a>
 			</div>
 			

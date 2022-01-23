@@ -53,15 +53,28 @@ public class ApiService {
 		
 	}
 	
-	public boolean paymentTrue() {
-		return true;
+	public boolean setOrderStatusPaid(Integer orderId) {
+		try {
+			Order order = em.find(Order.class, orderId);
+			if(order.getStatus() == Order.PAID) {
+				return false;
+			}
+			System.out.println(order);
+			
+			order.setStatus(Order.PAID);
+			em.persist(order);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
-	public boolean paymentFalse() {
-		return false;
+	public List<Order> getListOfOrdersByUser(User user) { 
+		return em.createNamedQuery("Order.getByUserId", Order.class).setParameter(1, user.getUserId()).getResultList();
 	}
 	
-	public boolean createOrder(Integer userId, Integer packageId, Integer periodId, Float total, String startingDate, String productIds, boolean validPayment){
+	public Integer createOrder(Integer userId, Integer packageId, Integer periodId, Float total, String startingDate, String productIds){
 		User orderUser = em.find(User.class, userId);
 		TelcoPackage orderPackage = em.find(TelcoPackage.class, packageId); 
 		Period orderPeriod = em.find(Period.class, periodId);
@@ -82,8 +95,6 @@ public class ApiService {
 		
 		String[] productIdsSplit = productIds.split(","); //comma-separated ids of products
 		
-		boolean paid = validPayment ? this.paymentTrue() : this.paymentFalse();
-		
 		System.out.println(total);
 		
 		try {				
@@ -94,17 +105,13 @@ public class ApiService {
 			newOrder.setPurchaseDate(today);
 			newOrder.setTotal(total);
 			newOrder.setSuscriptionStartDate(startDate);
+			newOrder.setStatus(Order.PENDING);
 			
-			if(paid) {
-				newOrder.setStatus(1);
-			} else {
-				newOrder.setStatus(0);
-			}
 			em.persist(newOrder);
 			em.flush();
 			
 			Integer addedOrderId = newOrder.getId();
-			Order addedOrder = em.getReference(Order.class, addedOrderId);
+			//Order addedOrder = em.getReference(Order.class, addedOrderId);
 			
 			
 			for(String productId: productIdsSplit) {
@@ -115,17 +122,10 @@ public class ApiService {
 				}
 			}
 			
-			if(paid) {
-				
-				Schedule schedule = new Schedule();
-				em.persist(schedule);
-				addedOrder.addSchedule(schedule);
-				em.flush(); 
-			}
-			return true;
+			return addedOrderId;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
 		
 	}

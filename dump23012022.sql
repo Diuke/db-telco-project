@@ -97,7 +97,7 @@ CREATE TABLE `Order` (
   CONSTRAINT `fk_order_package` FOREIGN KEY (`package_id`) REFERENCES `TelcoPackage` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_order_period` FOREIGN KEY (`period_id`) REFERENCES `Period` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +106,7 @@ CREATE TABLE `Order` (
 
 LOCK TABLES `Order` WRITE;
 /*!40000 ALTER TABLE `Order` DISABLE KEYS */;
-INSERT INTO `Order` VALUES (34,2,2,2,'2022-01-09 23:51:25',1943.76,'2022-01-08 00:00:01',1);
+INSERT INTO `Order` VALUES (34,2,2,2,'2022-01-09 23:51:25',1943.76,'2022-01-08 00:00:01',1),(35,2,1,1,'2022-01-19 16:36:51',599.88,'2022-01-28 00:00:01',1),(36,2,4,1,'2022-01-22 00:00:00',264,'2022-01-29 00:00:00',1),(37,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(38,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(39,2,2,1,'2022-01-22 12:22:14',744,'2022-01-29 00:00:00',1),(40,4,1,2,'2022-01-23 13:50:49',1127.76,'2022-01-06 00:00:00',1),(41,4,1,3,'2022-01-23 14:10:43',1727.28,'2022-01-15 00:00:00',0),(42,4,1,3,'2022-01-23 15:01:25',1727.28,'2022-01-15 00:00:00',0),(43,4,1,3,'2022-01-23 15:05:01',1727.28,'2022-01-15 00:00:00',1),(44,4,1,3,'2022-01-23 15:08:29',1727.28,'2022-01-15 00:00:00',0),(45,4,1,3,'2022-01-23 15:09:40',1727.28,'2022-01-15 00:00:00',1),(46,4,1,3,'2022-01-23 15:10:21',1727.28,'2022-01-15 00:00:00',1),(47,4,1,3,'2022-01-23 15:11:15',1727.28,'2022-01-15 00:00:00',1),(48,4,1,3,'2022-01-23 15:12:28',1727.28,'2022-01-15 00:00:00',1),(49,4,1,3,'2022-01-23 15:12:36',1727.28,'2022-01-15 00:00:00',0);
 /*!40000 ALTER TABLE `Order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +133,7 @@ CREATE TABLE `OrderProduct` (
 
 LOCK TABLES `OrderProduct` WRITE;
 /*!40000 ALTER TABLE `OrderProduct` DISABLE KEYS */;
-INSERT INTO `OrderProduct` VALUES (34,1),(34,2),(34,3);
+INSERT INTO `OrderProduct` VALUES (34,1),(35,1),(36,1),(37,1),(38,1),(39,1),(40,1),(41,1),(42,1),(43,1),(44,1),(45,1),(46,1),(47,1),(48,1),(49,1),(34,2),(35,2),(37,2),(38,2),(40,2),(41,2),(42,2),(43,2),(44,2),(45,2),(46,2),(47,2),(48,2),(49,2),(34,3),(41,3),(42,3),(43,3),(44,3),(45,3),(46,3),(47,3),(48,3),(49,3);
 /*!40000 ALTER TABLE `OrderProduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,7 +257,7 @@ CREATE TABLE `Schedule` (
   UNIQUE KEY `Schedule_id_uindex` (`id`),
   KEY `order_id` (`order_id`),
   CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `Order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,7 +266,7 @@ CREATE TABLE `Schedule` (
 
 LOCK TABLES `Schedule` WRITE;
 /*!40000 ALTER TABLE `Schedule` DISABLE KEYS */;
-INSERT INTO `Schedule` VALUES (28,34);
+INSERT INTO `Schedule` VALUES (28,34),(29,35),(30,36),(31,37),(32,38),(33,39),(34,40);
 /*!40000 ALTER TABLE `Schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,13 +359,13 @@ CREATE TABLE `User` (
   `password` varchar(45) NOT NULL,
   `username` varchar(45) NOT NULL,
   `role` int NOT NULL,
-  `insolvent` tinyint DEFAULT NULL,
+  `insolvent` tinyint DEFAULT '0',
   `failed_payment` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   UNIQUE KEY `password_UNIQUE` (`password`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,7 +374,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (2,'user1pass','user1',1,0,0);
+INSERT INTO `User` VALUES (2,'user1pass','user1',1,0,0),(3,'user2pass','user2',1,0,0),(4,'user3pass','user3',1,0,0),(5,'user4pass','user4',1,0,0),(6,'user5pass','user5',1,0,0);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -387,4 +387,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-10 13:03:08
+-- Dump completed on 2022-01-23 15:25:24

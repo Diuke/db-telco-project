@@ -48,7 +48,7 @@ public class NoPageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException { 
 		
-		response.sendRedirect("/TelcoAppWEB/home"); 
+		response.sendRedirect("/TelcoAppWEB/home");  
 		return; 
 
 
