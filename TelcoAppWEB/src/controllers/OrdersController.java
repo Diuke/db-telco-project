@@ -15,6 +15,7 @@ import org.thymeleaf.TemplateEngine;
 
 import model.*;
 import services.ApiService;
+import services.OrderService;
 
 import java.util.List;
 import org.thymeleaf.TemplateEngine;
@@ -32,6 +33,9 @@ public class OrdersController extends HttpServlet {
 	private TemplateEngine templateEngine;
 	@EJB(name = "services/ApiService")
 	private ApiService apiService;
+	
+	@EJB(name = "services/OrderService")
+	private OrderService orderService;
 
 	public OrdersController() {
 		super();
@@ -61,7 +65,7 @@ public class OrdersController extends HttpServlet {
 			return;  
 		}
 		
-		List<Order> userOrders = apiService.getListOfOrdersByUser(loggedInUser);   
+		List<Order> userOrders = orderService.getListOfOrdersByUser(loggedInUser);   
 
 		System.out.println(userOrders);
 		System.out.println(userOrders.size()); 

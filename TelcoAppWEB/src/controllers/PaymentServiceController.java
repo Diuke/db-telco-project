@@ -18,6 +18,8 @@ import org.thymeleaf.TemplateEngine;
 
 import model.*;
 import services.ApiService;
+import services.UserService;
+import services.OrderService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,12 @@ public class PaymentServiceController extends HttpServlet {
 	private TemplateEngine templateEngine;
 	@EJB(name = "services/ApiService")
 	private ApiService apiService;
+	
+	@EJB(name = "services/UserService")
+	private UserService userService;
+	
+	@EJB(name = "services/OrderService")
+	private OrderService orderService;
 
 	public PaymentServiceController() { 
 		super();
@@ -68,6 +76,13 @@ public class PaymentServiceController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {  
 		boolean isRandom = false, outcome = false;
+		
+		User loggedInUser = null;
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") != null) { 
+			loggedInUser = (User)session.getAttribute("user"); 
+		} 
+		
 		Integer orderId = null;
 		if (request.getParameterMap().containsKey("isRandom") && request.getParameter("isRandom") != "" && !request.getParameter("isRandom").isEmpty()) {
 			isRandom = Integer.parseInt(request.getParameter("isRandom").toString()) == 1;
@@ -89,10 +104,12 @@ public class PaymentServiceController extends HttpServlet {
 		} else {
 			payStatus = this.paymentStatus(isRandom, outcome);
 			if(payStatus) {  
-				System.out.println("in");
-				operationSuccess = apiService.setOrderStatusPaid(orderId);
-				System.out.println(operationSuccess);
+				operationSuccess = orderService.setOrderStatusPaid(orderId);
 				if(!operationSuccess) payStatus = false; 
+			} else {
+				userService.addOneFailedPaymentToUser(loggedInUser.getUserId());
+				
+				
 			}
 		}
 		

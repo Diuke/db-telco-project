@@ -26,6 +26,8 @@ public class User implements Serializable {
 	private String password;
 
 	private int role;
+	
+	private int failed_payment;
 
 	private String username;
 
@@ -64,6 +66,14 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public int getfailedPayment() {
+		return this.failed_payment;
+	}
+
+	public void setfailedPayment(int failedPayment) {
+		this.failed_payment = failedPayment;
+	}
+	
 	public int getRole() {
 		return this.role;
 	}

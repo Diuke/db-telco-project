@@ -15,6 +15,7 @@ import org.thymeleaf.TemplateEngine;
 
 import model.*;
 import services.ApiService;
+import services.OrderService;
 
 import java.util.List;
 import org.thymeleaf.TemplateEngine;
@@ -31,6 +32,9 @@ public class OrderCreationController extends HttpServlet {
 	private TemplateEngine templateEngine;
 	@EJB(name = "services/ApiService")
 	private ApiService apiService;
+	
+	@EJB(name = "services/OrderService")
+	private OrderService orderService;
 
 	public OrderCreationController() {
 		super();
@@ -81,7 +85,7 @@ public class OrderCreationController extends HttpServlet {
 			productIds = request.getParameter("productIds").toString();
 		} 
 		
-		int orderCreated = apiService.createOrder(userId, packageId, periodId, total, startingDate, productIds);
+		int orderCreated = orderService.createOrder(userId, packageId, periodId, total, startingDate, productIds);
 		
 		String message = "";
 		if(orderCreated != -1) {

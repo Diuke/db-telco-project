@@ -12,11 +12,11 @@ import java.util.Date;
 import java.util.List;
 
 @Stateless
-public class ApiService {
+public class EmployeeService {
 	@PersistenceContext(unitName = "TelcoAppEJB")
 	private EntityManager em;
 	
-	public ApiService() {
+	public EmployeeService() {
 	}
 	
 	public List<TelcoPackage> getListOfServicePackages(){		

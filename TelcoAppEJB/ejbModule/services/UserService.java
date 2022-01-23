@@ -48,5 +48,16 @@ public class UserService {
 		}
 		return true;
 	}
+	
+	public void addOneFailedPaymentToUser(int userId) {
+		try {
+			User userToAdd = em.find(User.class, userId);
+			userToAdd.setfailedPayment(userToAdd.getfailedPayment() + 1);
+			em.persist(userToAdd);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 }
