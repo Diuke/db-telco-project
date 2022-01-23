@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,8 +51,17 @@ public class Order implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 
-	//bi-directional many-to-many association to Product
-	@ManyToMany(mappedBy="orders")
+	//bi-directional many-to-many association to Order
+	@ManyToMany
+	@JoinTable(
+		name="OrderProduct"
+		, joinColumns={
+			@JoinColumn(name="order_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="product_id")
+			}
+		)
 	private List<Product> products;
 
 	//bi-directional many-to-one association to Schedule
@@ -58,6 +69,7 @@ public class Order implements Serializable {
 	private List<Schedule> schedules;
 
 	public Order() {
+		this.products = new ArrayList<Product>();
 	}
 
 	public int getId() {

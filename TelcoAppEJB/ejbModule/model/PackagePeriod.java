@@ -25,7 +25,7 @@ public class PackagePeriod implements Serializable {
 	private Period period;
 
 	//bi-directional many-to-one association to TelcoPackage
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="package_id")
 	private TelcoPackage telcoPackage;
 

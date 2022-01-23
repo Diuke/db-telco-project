@@ -34,6 +34,28 @@ public class UserService {
 
 	}
 	
+	public User checkCredentialsEmployee(String username, String password) throws CredentialsException, NonUniqueResultException {
+		List<User> uList = null;
+		try {
+			uList = em.createNamedQuery("User.checkCredentials", User.class).setParameter(1, username).setParameter(2, password).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CredentialsException("Could not verify credentals");
+		}
+		if (uList.isEmpty()) {
+			return null;
+		}
+		else if (uList.size() == 1) {
+			User u = uList.get(0);
+			if(u.getRole() != User.ROLE_EMPLOYEE) {
+				throw new CredentialsException("Could not verify credentals");
+			}
+			return u;
+		}
+		throw new NonUniqueResultException("More than one user registered with same credentials");
+
+	}
+	
 	public boolean registerUser(String username, String password) { 
 		try {
 			User newUser = new User();

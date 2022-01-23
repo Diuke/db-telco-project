@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,6 +18,7 @@ public class TelcoPackage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
@@ -25,7 +28,7 @@ public class TelcoPackage implements Serializable {
 	private List<Order> orders;
 
 	//bi-directional many-to-one association to PackagePeriod
-	@OneToMany(mappedBy="telcoPackage")
+	@OneToMany(mappedBy="telcoPackage", cascade = CascadeType.PERSIST) 
 	private List<PackagePeriod> packagePeriods;
 
 	//bi-directional many-to-many association to Product
@@ -55,6 +58,9 @@ public class TelcoPackage implements Serializable {
 	private List<Service> services;
 
 	public TelcoPackage() {
+		this.products = new ArrayList<Product>();
+		this.services = new ArrayList<Service>();
+		this.packagePeriods = new ArrayList<PackagePeriod>();
 	}
 
 	public int getId() {

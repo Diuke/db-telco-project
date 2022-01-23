@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" />
+
+<meta charset="ISO-8859-1">
+<title>TELCO APP</title>
+</head>
+<body> 
+
+	<div class="container" id="createApp">
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Payment</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        {{modalMessage}}
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	
+	
+		<div class="row mt-2 mb-5">
+			<div class="col-8">
+				<a th:href="@{/home}"><h1>WinbTres EMPLOYEE</h1></a>
+			</div>
+			
+			<div class="col-4">				
+				<span th:text="${'Welcome ' + loggedInUser.getUsername()}"></span>
+				
+				<span class="px-1">|</span>
+				
+				<a th:href="@{/Logout}">Logout</a>
+			</div>
+			
+		</div>
+		
+		<div class="row mb-3">
+			<h1 style="font-weight: bold">Create Optional Product</h1>
+		</div>
+		<div class="row mb-1">
+			<div class="col text-center">
+				<h3>Product name:</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="mb-3">
+			    <input th:attr="'v-model'=|productName|" type="text" class="form-control" id="productName">
+			</div>			
+		</div>
+		
+		<div class="row mb-1">
+			<div class="col text-center">
+				<h3>Value Per Month:</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="mb-3">
+			    <input th:attr="'v-model'=|productValue|" type="number" class="form-control" id="productValue">
+			</div>			
+		</div>
+		
+		<div class="row mb-5">
+			<div class="col text-center">
+				<div class="d-grid gap-2">
+				  <button class="btn btn-success" style="font-size: 40px; font-weight: bold" type="button" th:attr="'@click'=|sendCreateProduct()|">Create Product</button>
+				</div>
+			</div>
+		</div>
+		
+		
+		<hr class="my-5">
+		
+		
+		<div class="row mb-3">
+			<h1 style="font-weight: bold">Create Service Package</h1>
+		</div>
+		
+		<div class="row mb-1">
+			<div class="col text-center">
+				<h3>Name:</h3>
+			</div>
+		</div>
+		<div class="row mb-5">
+			<div class="mb-2">
+			    <input th:attr="'v-model'=|packageName|" type="text" class="form-control" id="packageName">
+			</div>			
+		</div>
+		
+		<div class="row mb-1">
+			<div class="col text-center">
+				<h3>Possible Durations</h3>
+			</div>
+		</div>
+		<div class="row mb-5">
+			<div class="col-4 mb-2 text-center" th:each="period,iter : ${periods}">
+				<div class="p-2 periodSelector home-service-buttons" th:attr="'@click'=|togglePeriod('${period.id}', '${iter.index}')|" th:id="${'period_' + period.id}">
+					<h3 th:text=" ${period.months + ' months'}"></h3>
+				</div>
+				<input th:attr="'v-model'=|periodValues['${iter.index}']|" type="number" class="form-control" id="productName">
+				
+			</div>
+		</div>
+			
+		<div class="row mb-1">
+			<div class="col text-center">
+				<h3>Optional Products</h3>
+			</div>
+		</div>
+		<div class="row mb-5">
+			<div class="col-4 mb-2 text-center" th:each="product : ${products}">
+				<div class="p-2 productSelector home-service-buttons" th:attr="'@click'=|toggleProduct('${product.id}')|" th:id="${'product_' + product.id}">
+					<h3 th:text=" ${product.name}"></h3>
+					<h3 th:text=" ${'$' + product.value + ' per month'}"></h3>
+				</div>
+				
+			</div>
+		</div>
+		
+		<div class="row mb-1">
+			<div class="col text-center">
+				<h3>Services</h3>
+			</div>
+		</div>
+		<div class="row mb-5">
+			<div class="col-4 mb-2 text-center" th:each="service : ${services}">
+				<div class="p-2 serviceSelector home-service-buttons" th:attr="'@click'=|toggleService('${service.id}')|" th:id="${'service_' + service.id}">
+					<h3 th:text=" ${service.name}"></h3>
+				</div>
+				
+			</div>
+		</div>
+		
+		<div class="row mb-5">
+			<div class="col text-center">
+				<div class="d-grid gap-2">
+				  <button class="btn btn-success" style="font-size: 40px; font-weight: bold" type="button" th:attr="'@click'=|sendCreateServicePackage()|">Create Service Package</button>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script>
+		var app = new Vue({
+			el: '#createApp',
+			data: function() {
+				return {
+					productName: "",
+					productValue: 0,
+					
+					selectedPeriods: [],
+					periodValues: [],
+					periodMapping: {},
+					selectedProducts: [],
+					selectedServices: [],
+					packageName: "",
+					
+					modal: null,
+					modalMessage: "",
+					updatePage: false
+				}
+			},
+			
+			mounted() {
+				this.modal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+				document.getElementById("exampleModal").addEventListener('hidden.bs.modal', (event)=> {
+					this.updatePageMethod();
+				})
+			},
+			
+			methods: {
+				selectPeriod(id) {
+					this.selectedPeriodId = id;
+					let allPeriods = document.getElementsByClassName("periodSelector");
+					for(let i = 0; i < allPeriods.length; i++){
+						allPeriods[i].classList.remove('periodActive');	
+					}
+					document.getElementById("period_" + id).classList.add("periodActive");					
+				},
+				
+				toggleProduct(id) {		
+					let productElement = document.getElementById("product_" + id);
+					let index = this.selectedProducts.indexOf(id);
+					if(index == -1){ //do not exist
+						this.selectedProducts.push(id);
+					} else {
+						this.selectedProducts.splice(index, 1);
+					}
+					
+					let allProducts = document.getElementsByClassName("productSelector");
+					for(let i = 0; i < allProducts.length; i++){
+						allProducts[i].classList.remove('formActive');
+					}
+					
+					for(let i = 0; i < this.selectedProducts.length; i++){
+						document.getElementById("product_" + this.selectedProducts[i]).classList.add('formActive');
+					}
+				},
+				
+				toggleService(id) {		
+					let serviceElement = document.getElementById("service_" + id);
+					let index = this.selectedServices.indexOf(id);
+					if(index == -1){ //do not exist
+						this.selectedServices.push(id);
+					} else {
+						this.selectedServices.splice(index, 1);
+					}
+					
+					let allServices = document.getElementsByClassName("serviceSelector");
+					for(let i = 0; i < allServices.length; i++){
+						allServices[i].classList.remove('formActive');
+					}
+					
+					for(let i = 0; i < this.selectedServices.length; i++){
+						document.getElementById("service_" + this.selectedServices[i]).classList.add('formActive');
+					}
+				},
+				
+				togglePeriod(id, i) {		
+					let periodElement = document.getElementById("period_" + id);
+					let index = this.selectedPeriods.indexOf(id);
+					if(index == -1){ //do not exist
+						this.selectedPeriods.push(id);
+						this.periodMapping[id] = i;
+					} else {
+						this.selectedPeriods.splice(index, 1);
+						delete this.periodMapping[id];
+					}
+					
+					let allPeriods = document.getElementsByClassName("periodSelector");
+					for(let i = 0; i < allPeriods.length; i++){
+						allPeriods[i].classList.remove('formActive');
+					}
+					
+					for(let i = 0; i < this.selectedPeriods.length; i++){
+						document.getElementById("period_" + this.selectedPeriods[i]).classList.add('formActive');
+					}
+				},
+				
+				validateServicePackage(){
+					let valid = true;
+					valid = valid && this.selectedPeriods.length > 0;
+					valid = valid && this.selectedServices.length > 0;
+					valid = valid && this.packageName != "";
+					return valid;
+				},
+				
+				validateProduct(){
+					return this.productName != "" && this.productValue > 0;
+				},
+				
+				updatePageMethod(){
+					if(this.updatePage){
+						window.location.reload();	
+					}
+				},
+				
+				sendCreateServicePackage(){
+					let valid = this.validateServicePackage();
+					if(valid){					
+						let url = "/TelcoAppEmployeeWEB/create?do=package";
+						
+						let productsQueryParam = "";
+						for(let i = 0; i < this.selectedProducts.length; i++){
+							productsQueryParam += this.selectedProducts[i] + ",";
+						}
+						if(productsQueryParam.length > 0){
+							productsQueryParam = productsQueryParam.slice(0, -1); //remove last comma only if there are any parameters.
+						}
+						
+						let servicesQueryParam = "";
+						for(let i = 0; i < this.selectedServices.length; i++){
+							servicesQueryParam += this.selectedServices[i] + ",";
+						}
+						if(servicesQueryParam.length > 0){
+							servicesQueryParam = servicesQueryParam.slice(0, -1); //remove last comma only if there are any parameters.
+						}
+						
+						console.log(this.periodValues);
+						console.log(this.periodMapping);
+						console.log(this.selectedPeriods);
+						let periodsQueryParam = "";
+						for(let i = 0; i < this.selectedPeriods.length; i++){
+							periodsQueryParam += this.selectedPeriods[i] + "!" + this.periodValues[this.periodMapping[this.selectedPeriods[i]]] + ",";
+						}
+						if(periodsQueryParam.length > 0){
+							periodsQueryParam = periodsQueryParam.slice(0, -1); //remove last comma only if there are any parameters.
+						}
+						
+						let queryParams = "&periods=" + periodsQueryParam + "&services=" + servicesQueryParam + "&products=" + productsQueryParam + "&name=" + this.packageName;
+						url += queryParams;
+						console.log(url);
+						
+						fetch(url, {method: "POST"})
+						  .then(response => response.json())
+						  .then(data => {
+							  let result = data.result;
+							  if(result){
+								  this.modalMessage = "Product Created!";
+								  this.updatePage = true;
+							  } else {
+								  this.modalMessage = "Failed to create product";
+								  this.updatePage = false;
+							  }
+							  this.modal.show();
+						  });
+						
+						
+					} else {
+						alert("Data is missing");
+					}
+				},
+				
+				sendCreateProduct(){
+					let valid = this.validateProduct();
+					if(valid){					
+						let url = "/TelcoAppEmployeeWEB/create?do=product";
+						
+						let queryParams = "&productName=" + this.productName + "&productValue=" + this.productValue;
+						url += queryParams;
+						console.log(url);
+						
+						fetch(url, {method: "POST"})
+						  .then(response => response.json())
+						  .then(data => {
+							  let result = data.result;
+							  if(result){
+								  this.modalMessage = "Product Created!";
+								  this.updatePage = true;
+							  } else {
+								  this.modalMessage = "Failed to create product";
+								  this.updatePage = false;
+							  }
+							  this.modal.show();
+						  });
+						
+					} else {
+						alert("Data is missing");
+					}
+				}
+			}
+		})
+	</script>
+	
+</body>
+</html>

@@ -16,6 +16,9 @@ import java.util.List;
 
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final long ROLE_USER = 1;
+	public static final long ROLE_EMPLOYEE = 2;
 
 	@Id
 	@Column(name="user_id")

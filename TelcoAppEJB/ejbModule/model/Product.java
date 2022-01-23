@@ -22,19 +22,10 @@ public class Product implements Serializable {
 
 	private String name;
 
-	private float value;
+	private float value; 
 
-	//bi-directional many-to-many association to Order
-	@ManyToMany
-	@JoinTable(
-		name="OrderProduct"
-		, joinColumns={
-			@JoinColumn(name="product_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="order_id")
-			}
-		)
+	//bi-directional many-to-many association to Product
+	@ManyToMany(mappedBy="products")
 	private List<Order> orders;
 
 	//bi-directional many-to-many association to TelcoPackage

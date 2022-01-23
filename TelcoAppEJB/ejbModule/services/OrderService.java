@@ -18,20 +18,7 @@ public class OrderService {
 	
 	public OrderService() {
 	}
-	
-	public boolean insertOrderProduct(Integer orderId, Integer productId) {
-		try {
-			em.createNativeQuery("INSERT INTO telco_app_db.OrderProduct (order_id, product_id) VALUES (?,?)")
-			.setParameter(1, orderId)
-			.setParameter(2, productId)
-			.executeUpdate();
-			return true;
-			
-		} catch (Exception e) {
-			return false; 
-		}
-		
-	}
+
 	
 	public boolean setOrderStatusPaid(Integer orderId) {
 		try {
@@ -54,7 +41,7 @@ public class OrderService {
 		return em.createNamedQuery("Order.getByUserId", Order.class).setParameter(1, user.getUserId()).getResultList();
 	}
 	
-	public Integer createOrder(Integer userId, Integer packageId, Integer periodId, Float total, String startingDate, String productIds){
+	public int createOrder(Integer userId, Integer packageId, Integer periodId, Float total, String startingDate, String productIds){
 		User orderUser = em.find(User.class, userId);
 		TelcoPackage orderPackage = em.find(TelcoPackage.class, packageId); 
 		Period orderPeriod = em.find(Period.class, periodId);
@@ -87,20 +74,14 @@ public class OrderService {
 			newOrder.setSuscriptionStartDate(startDate);
 			newOrder.setStatus(Order.PENDING);
 			
-			em.persist(newOrder);
-			em.flush();
-			
-			Integer addedOrderId = newOrder.getId();
-			//Order addedOrder = em.getReference(Order.class, addedOrderId);
-			
-			
 			for(String productId: productIdsSplit) {
 				Integer pId = Integer.parseInt(productId);
-				boolean added = this.insertOrderProduct(addedOrderId, pId);
-				if(!added) {
-					throw new Exception("Error adding a product");
-				}
+				Product p = this.em.find(Product.class, pId);
+				newOrder.getProducts().add(p);
 			}
+			em.persist(newOrder);
+			em.flush();
+			Integer addedOrderId = newOrder.getId();
 			
 			return addedOrderId;
 		} catch (Exception e) {

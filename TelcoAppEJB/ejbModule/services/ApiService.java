@@ -23,6 +23,18 @@ public class ApiService {
 		return em.createNamedQuery("TelcoPackage.findAll", TelcoPackage.class).getResultList();
 	}
 	
+	public List<Period> getListOfValidityPeriods(){		 
+		return em.createNamedQuery("Period.findAll", Period.class).getResultList();
+	}
+	
+	public List<Service> getListOfServices(){		
+		return em.createNamedQuery("Service.findAll", Service.class).getResultList();
+	}
+	
+	public List<Product> getListOfProducts(){		
+		return em.createNamedQuery("Product.findAll", Product.class).getResultList();
+	}
+	
 	public TelcoPackage getPackageById(Integer id) {
 		return em.find(TelcoPackage.class, id);
 	}
