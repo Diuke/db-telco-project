@@ -19,46 +19,6 @@ public class EmployeeService {
 	public EmployeeService() {
 	}
 	
-	public boolean insertPackageProduct(Integer productId, Integer packageId) {
-		try {
-			em.createNativeQuery("INSERT INTO telco_app_db.ProductPackage (product_id, package_id) VALUES (?,?)")
-			.setParameter(1, productId)
-			.setParameter(2, packageId)
-			.executeUpdate();
-			return true;
-			
-		} catch (Exception e) {
-			return false; 
-		}
-	}
-	
-	public boolean insertServicePackage(Integer serviceId, Integer packageId) {
-		try {
-			em.createNativeQuery("INSERT INTO telco_app_db.ProductPackage (service_id, package_id) VALUES (?,?)")
-			.setParameter(1, serviceId)
-			.setParameter(2, packageId)
-			.executeUpdate();
-			return true;
-			
-		} catch (Exception e) {
-			return false; 
-		}
-	}
-	
-	public boolean insertPackagePeriod(Integer periodId, Integer packageId, float value) {
-		try {
-			em.createNativeQuery("INSERT INTO telco_app_db.ProductPackage (period_id, package_id, value) VALUES (?,?,?)")
-			.setParameter(1, periodId)
-			.setParameter(2, packageId)
-			.setParameter(3, value)
-			.executeUpdate();
-			return true;
-			
-		} catch (Exception e) {
-			return false; 
-		}
-	}
-	
 	public boolean createOptionalProduct(String name, float value) {
 		try {
 			Product newProduct = new Product();
@@ -98,7 +58,8 @@ public class EmployeeService {
 			
 			for(String pv: periodsAndValuesList) {
 				System.out.println(pv);
-				String[] periodValue = pv.split("!");
+				//pv values are "periodId!periodValue"
+				String[] periodValue = pv.split("!"); 
 				Integer peId = Integer.parseInt(periodValue[0]);
 				float value = Float.parseFloat(periodValue[1]);
 				Period pe = em.find(Period.class, peId);
