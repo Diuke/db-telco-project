@@ -57,11 +57,11 @@ CREATE TABLE `AudTable` (
   `ammount` float NOT NULL,
   `last_rejection` datetime NOT NULL,
   `user_id` int NOT NULL,
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +70,7 @@ CREATE TABLE `AudTable` (
 
 LOCK TABLES `AudTable` WRITE;
 /*!40000 ALTER TABLE `AudTable` DISABLE KEYS */;
+INSERT INTO `AudTable` VALUES ('user3',1127.76,'2022-01-23 13:50:49',4,1);
 /*!40000 ALTER TABLE `AudTable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +95,7 @@ CREATE TABLE `MvProduct` (
 
 LOCK TABLES `MvProduct` WRITE;
 /*!40000 ALTER TABLE `MvProduct` DISABLE KEYS */;
-INSERT INTO `MvProduct` VALUES (1,'STAR Channel',1152),(2,'Serie A',2400),(3,'SuperInternetProtection',383.04);
+INSERT INTO `MvProduct` VALUES (1,'STAR Channel',1440),(2,'Serie A',3000),(3,'SuperInternetProtection',478.8);
 /*!40000 ALTER TABLE `MvProduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +123,7 @@ CREATE TABLE `MvSales` (
 
 LOCK TABLES `MvSales` WRITE;
 /*!40000 ALTER TABLE `MvSales` DISABLE KEYS */;
-INSERT INTO `MvSales` VALUES (1,4582.32,743.04,3,2.66667,'Super Internet');
+INSERT INTO `MvSales` VALUES (1,5710.08,982.8,4,2.5,'Super Internet');
 /*!40000 ALTER TABLE `MvSales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +150,7 @@ CREATE TABLE `MvSalesPeriod` (
 
 LOCK TABLES `MvSalesPeriod` WRITE;
 /*!40000 ALTER TABLE `MvSalesPeriod` DISABLE KEYS */;
-INSERT INTO `MvSalesPeriod` VALUES (1,3,2,36,'Super Internet'),(1,2,1,24,'Super Internet');
+INSERT INTO `MvSalesPeriod` VALUES (1,3,2,36,'Super Internet'),(1,2,2,24,'Super Internet');
 /*!40000 ALTER TABLE `MvSalesPeriod` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +187,7 @@ CREATE TABLE `Order` (
 
 LOCK TABLES `Order` WRITE;
 /*!40000 ALTER TABLE `Order` DISABLE KEYS */;
-INSERT INTO `Order` VALUES (34,2,2,2,'2022-01-09 23:51:25',1943.76,'2022-01-08 00:00:01',1),(35,2,1,1,'2022-01-19 16:36:51',599.88,'2022-01-28 00:00:01',1),(36,2,4,1,'2022-01-22 00:00:00',264,'2022-01-29 00:00:00',1),(37,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(38,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(39,2,2,1,'2022-01-22 12:22:14',744,'2022-01-29 00:00:00',1),(40,4,1,2,'2022-01-23 13:50:49',1127.76,'2022-01-06 00:00:00',1),(41,4,1,3,'2022-01-23 14:10:43',1727.28,'2022-01-15 00:00:00',0),(42,4,1,3,'2022-01-23 15:01:25',1727.28,'2022-01-15 00:00:00',1),(43,4,1,3,'2022-01-23 15:05:01',1727.28,'2022-01-15 00:00:00',1),(44,4,1,3,'2022-01-23 15:08:29',1727.28,'2022-01-15 00:00:00',1),(45,4,1,3,'2022-01-23 15:09:40',1727.28,'2022-01-15 00:00:00',1),(46,4,1,3,'2022-01-23 15:10:21',1727.28,'2022-01-15 00:00:00',1),(47,4,1,3,'2022-01-23 15:11:15',1727.28,'2022-01-15 00:00:00',1),(48,4,1,3,'2022-01-23 15:12:28',1727.28,'2022-01-15 00:00:00',1),(49,4,1,3,'2022-01-23 15:12:36',1727.28,'2022-01-15 00:00:00',0);
+INSERT INTO `Order` VALUES (34,2,2,2,'2022-01-09 23:51:25',1943.76,'2022-01-08 00:00:01',1),(35,2,1,1,'2022-01-19 16:36:51',599.88,'2022-01-28 00:00:01',1),(36,2,4,1,'2022-01-22 00:00:00',264,'2022-01-29 00:00:00',1),(37,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(38,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(39,2,2,1,'2022-01-22 12:22:14',744,'2022-01-29 00:00:00',1),(40,4,1,2,'2022-01-23 13:50:49',1127.76,'2022-01-06 00:00:00',2),(41,4,1,3,'2022-01-23 14:10:43',1727.28,'2022-01-15 00:00:00',0),(42,4,1,3,'2022-01-23 15:01:25',1727.28,'2022-01-15 00:00:00',1),(43,4,1,3,'2022-01-23 15:05:01',1727.28,'2022-01-15 00:00:00',1),(44,4,1,3,'2022-01-23 15:08:29',1727.28,'2022-01-15 00:00:00',1),(45,4,1,3,'2022-01-23 15:09:40',1727.28,'2022-01-15 00:00:00',1),(46,4,1,3,'2022-01-23 15:10:21',1727.28,'2022-01-15 00:00:00',1),(47,4,1,3,'2022-01-23 15:11:15',1727.28,'2022-01-15 00:00:00',1),(48,4,1,3,'2022-01-23 15:12:28',1727.28,'2022-01-15 00:00:00',1),(49,4,1,3,'2022-01-23 15:12:36',1727.28,'2022-01-15 00:00:00',0);
 /*!40000 ALTER TABLE `Order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -279,6 +280,28 @@ DELIMITER ;;
             set
                total_puchases = total_puchases + 1
             where package_id = NEW.package_id and period_id = NEW.period_id;
+        end if;
+    end if;
+
+    -- Alerts
+    if NEW.status = 2 and OLD.status != 2 then
+        set @user_id := (select user_id from telco_app_db.User u where u.user_id = NEW.user_id);
+        set @user_username := (select username from telco_app_db.User u where u.user_id = NEW.user_id);
+        set @failed_payment := (select failed_payment from telco_app_db.User u where u.user_id = NEW.user_id);
+
+        update telco_app_db.User
+            set insolvent = 1
+        where user_id = NEW.user_id;
+        if @failed_payment = 2 then
+            update telco_app_db.User u
+                set failed_payment = 0
+            where u.user_id = NEW.user_id;
+            insert into telco_app_db.AudTable(user_id, email, ammount, last_rejection)
+                values(@user_id, @user_username, new.total, new.purchase_date);
+        else
+            update telco_app_db.User u
+                set failed_payment = failed_payment + 1
+            where u.user_id = NEW.user_id;
         end if;
     end if;
 end */;;
@@ -554,7 +577,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (2,'user1pass','user1',1,0,0),(3,'user2pass','user2',1,0,0),(4,'user3pass','user3',1,0,1),(5,'user4pass','user4',1,0,0),(6,'user5pass','user5',1,0,0),(7,'user8pass','user8',1,0,2),(8,'admin','admin',2,0,0);
+INSERT INTO `User` VALUES (2,'user1pass','user1',1,0,0),(3,'user2pass','user2',1,0,0),(4,'user3pass','user3',1,1,0),(5,'user4pass','user4',1,0,0),(6,'user5pass','user5',1,0,0),(7,'user8pass','user8',1,0,2),(8,'admin','admin',2,0,0);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -567,4 +590,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-24 21:21:38
+-- Dump completed on 2022-01-24 22:25:31
