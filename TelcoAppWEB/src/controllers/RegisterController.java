@@ -76,10 +76,12 @@ public class RegisterController extends HttpServlet {
 		// obtain and escape params
 		String username = null;
 		String password = null;
+		String email = null;
 		try {
 			username = StringEscapeUtils.escapeJava(request.getParameter("username"));
 			password = StringEscapeUtils.escapeJava(request.getParameter("password"));
-			if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+			email = StringEscapeUtils.escapeJava(request.getParameter("email"));
+			if (username == null || password == null || username.isEmpty() || password.isEmpty() || email == null || email.isEmpty()) {
 				throw new Exception("Missing or empty credential value");
 			}
 
@@ -87,9 +89,9 @@ public class RegisterController extends HttpServlet {
 			// for debugging only e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
 			return;
-		}
+		} 
 		
-		boolean userCreated = usrService.registerUser(username, password);
+		boolean userCreated = usrService.registerUser(username, password, email);
 		String path;
 		if(!userCreated) {
 			ServletContext servletContext = getServletContext(); 

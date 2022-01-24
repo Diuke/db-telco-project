@@ -33,6 +33,8 @@ public class User implements Serializable {
 	private int failed_payment;
 
 	private String username;
+	
+	private String email;
 
 	//bi-directional many-to-one association to AudTable
 	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
@@ -136,5 +138,15 @@ public class User implements Serializable {
 
 		return order;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 
 }

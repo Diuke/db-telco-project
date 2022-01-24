@@ -56,11 +56,12 @@ public class UserService {
 
 	}
 	
-	public boolean registerUser(String username, String password) { 
+	public boolean registerUser(String username, String password, String email) { 
 		try {
 			User newUser = new User();
 			newUser.setUsername(username);
 			newUser.setPassword(password);
+			newUser.setEmail(email);
 			newUser.setRole(1); //new normal user
 			em.persist(newUser);
 		} catch (Exception e) {

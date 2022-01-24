@@ -7,6 +7,9 @@
 		<jta-data-source>TelcoAppDB</jta-data-source>
 		<class>model.Attribute</class>
 		<class>model.AudTable</class>
+		<class>model.MvProduct</class>
+		<class>model.MvSales</class>
+		<class>model.MvSalesPeriod</class>
 		<class>model.Order</class>
 		<class>model.PackagePeriod</class>
 		<class>model.PackagePeriodPK</class>
