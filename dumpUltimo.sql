@@ -1,13 +1,13 @@
 -- MySQL dump 10.13  Distrib 8.0.27, for macos12.0 (arm64)
 --
--- Host: 2.tcp.ngrok.io    Database: telco_app_db
+-- Host: 6.tcp.ngrok.io    Database: telco_app_db
 -- ------------------------------------------------------
 -- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -94,6 +94,7 @@ CREATE TABLE `MvProduct` (
 
 LOCK TABLES `MvProduct` WRITE;
 /*!40000 ALTER TABLE `MvProduct` DISABLE KEYS */;
+INSERT INTO `MvProduct` VALUES (1,'STAR Channel',1152),(2,'Serie A',2400),(3,'SuperInternetProtection',383.04);
 /*!40000 ALTER TABLE `MvProduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,6 +122,7 @@ CREATE TABLE `MvSales` (
 
 LOCK TABLES `MvSales` WRITE;
 /*!40000 ALTER TABLE `MvSales` DISABLE KEYS */;
+INSERT INTO `MvSales` VALUES (1,4582.32,743.04,3,2.66667,'Super Internet');
 /*!40000 ALTER TABLE `MvSales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,6 +149,7 @@ CREATE TABLE `MvSalesPeriod` (
 
 LOCK TABLES `MvSalesPeriod` WRITE;
 /*!40000 ALTER TABLE `MvSalesPeriod` DISABLE KEYS */;
+INSERT INTO `MvSalesPeriod` VALUES (1,3,2,36,'Super Internet'),(1,2,1,24,'Super Internet');
 /*!40000 ALTER TABLE `MvSalesPeriod` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +186,7 @@ CREATE TABLE `Order` (
 
 LOCK TABLES `Order` WRITE;
 /*!40000 ALTER TABLE `Order` DISABLE KEYS */;
-INSERT INTO `Order` VALUES (34,2,2,2,'2022-01-09 23:51:25',1943.76,'2022-01-08 00:00:01',1),(35,2,1,1,'2022-01-19 16:36:51',599.88,'2022-01-28 00:00:01',1),(36,2,4,1,'2022-01-22 00:00:00',264,'2022-01-29 00:00:00',1),(37,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(38,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(39,2,2,1,'2022-01-22 12:22:14',744,'2022-01-29 00:00:00',1),(40,4,1,2,'2022-01-23 13:50:49',1127.76,'2022-01-06 00:00:00',1),(41,4,1,3,'2022-01-23 14:10:43',1727.28,'2022-01-15 00:00:00',0),(42,4,1,3,'2022-01-23 15:01:25',1727.28,'2022-01-15 00:00:00',0),(43,4,1,3,'2022-01-23 15:05:01',1727.28,'2022-01-15 00:00:00',1),(44,4,1,3,'2022-01-23 15:08:29',1727.28,'2022-01-15 00:00:00',0),(45,4,1,3,'2022-01-23 15:09:40',1727.28,'2022-01-15 00:00:00',1),(46,4,1,3,'2022-01-23 15:10:21',1727.28,'2022-01-15 00:00:00',1),(47,4,1,3,'2022-01-23 15:11:15',1727.28,'2022-01-15 00:00:00',1),(48,4,1,3,'2022-01-23 15:12:28',1727.28,'2022-01-15 00:00:00',1),(49,4,1,3,'2022-01-23 15:12:36',1727.28,'2022-01-15 00:00:00',0);
+INSERT INTO `Order` VALUES (34,2,2,2,'2022-01-09 23:51:25',1943.76,'2022-01-08 00:00:01',1),(35,2,1,1,'2022-01-19 16:36:51',599.88,'2022-01-28 00:00:01',1),(36,2,4,1,'2022-01-22 00:00:00',264,'2022-01-29 00:00:00',1),(37,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(38,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(39,2,2,1,'2022-01-22 12:22:14',744,'2022-01-29 00:00:00',1),(40,4,1,2,'2022-01-23 13:50:49',1127.76,'2022-01-06 00:00:00',1),(41,4,1,3,'2022-01-23 14:10:43',1727.28,'2022-01-15 00:00:00',0),(42,4,1,3,'2022-01-23 15:01:25',1727.28,'2022-01-15 00:00:00',1),(43,4,1,3,'2022-01-23 15:05:01',1727.28,'2022-01-15 00:00:00',1),(44,4,1,3,'2022-01-23 15:08:29',1727.28,'2022-01-15 00:00:00',1),(45,4,1,3,'2022-01-23 15:09:40',1727.28,'2022-01-15 00:00:00',1),(46,4,1,3,'2022-01-23 15:10:21',1727.28,'2022-01-15 00:00:00',1),(47,4,1,3,'2022-01-23 15:11:15',1727.28,'2022-01-15 00:00:00',1),(48,4,1,3,'2022-01-23 15:12:28',1727.28,'2022-01-15 00:00:00',1),(49,4,1,3,'2022-01-23 15:12:36',1727.28,'2022-01-15 00:00:00',0);
 /*!40000 ALTER TABLE `Order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -197,58 +200,35 @@ UNLOCK TABLES;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `OrderTrigger` AFTER UPDATE ON `Order` FOR EACH ROW begin
     -- VARS AND DECLARATIONS
-    declare name varchar(80);
+
+    declare name varchar(256);
     declare value float;
-    declare iden integer;
-    declare finished integer default 0;
+    declare iden int;
+    DECLARE done bool default FALSE;
 
-    declare products cursor for
+    declare cursor_prod cursor for
         (select p.id, p.name, p.value from telco_app_db.Product p, OrderProduct Op
-        where p.id = Op.product_id and Op.order_id = NEW.id);
+        where p.id = Op.product_id and Op.order_id = 43);
 
-    declare continue handler
-        for not found set finished = 1;
-
-    set @user_id := (select User.user_id from telco_app_db.User where user_id = OLD.user_id);
-    set @user_username := (select User.username from telco_app_db.User where user_id = OLD.user_id);
-
-    -- Billing
-    if NEW.status = 1 and OLD.status != 1 then
-        insert into telco_app_db.Schedule(order_id)
-            values (NEW.id);
-    elseif NEW.status = 2 and OLD.status != 2 then
-        update telco_app_db.User
-            set insolvent = true
-        where @user_id = NEW.user_id;
-        if telco_app_db.User.failed_payment = 2 then
-            update telco_app_db.User
-                set User.failed_payment = 0
-            where @user_id = NEW.user_id;
-            insert into telco_app_db.AudTable(user_id, email, ammount, last_rejection)
-                values(@user_id, @user_username, new.total, new.purchase_date);
-        else
-            update telco_app_db.User
-                set User.failed_payment = User.failed_payment + 1
-            where @user_id = NEW.user_id;
-        end if;
-    end if;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
     if NEW.status = 1 and OLD.status != 1 then
         set @SalesWith := (NEW.total);
         set @Period := (select p.months from telco_app_db.Period p
             where p.id = NEW.period_id);
-        set @PackageSales := (
-            select sum(value * @Period)
+        set @PackageSales := (select sum(value * @Period)
             from Product p, OrderProduct op
             where p.id = op.product_id and op.order_id = NEW.id);
+        set @SalesNoPackage := (select pp.value * p.months from telco_app_db.PackagePeriod pp, telco_app_db.Period p
+            where pp.period_id = NEW.period_id and pp.package_id = NEW.package_id and p.id = NEW.period_id);
         set @Products := (
             select count(*)
             from Product p, OrderProduct op
             where p.id = op.product_id and op.order_id = NEW.id);
-        set @MvSales := (select count(*) from telco_app_db.MvSales
-            where `Order`.package_id = NEW.package_id);
-        set @Package := (select name from telco_app_db.TelcoPackage
-            where TelcoPackage.id = NEW.package_id);
+        set @MvSales := (select count(*) from telco_app_db.MvSales mvs
+            where mvs.package_id = NEW.package_id);
+        set @Package := (select TP.name from telco_app_db.TelcoPackage TP
+            where TP.id = NEW.package_id);
         set @MvSalesPeriod := (select count(*) from telco_app_db.MvSalesPeriod
             where MvSalesPeriod.period_id = NEW.period_id and MvSalesPeriod.package_id = NEW.package_id);
         -- Init proc
@@ -256,22 +236,27 @@ DELIMITER ;;
         -- Sales MV
         if @MvSales = 0 then
             insert into telco_app_db.MvSales(package_id, sales_with, sales_without, total_puchases, avg_optional, name)
-            values (NEW.package_id, @SalesWith, @SalesWith - @PackageSales, 1, @Products, @Package);
+            values (NEW.package_id, @SalesWith, @SalesNoPackage, 1, @Products, @Package);
         else
             update telco_app_db.MvSales
             set
-                avg_optional = (total_puchases * avg_optional + @Products / (total_puchases + 1)),
+                avg_optional = ((total_puchases * avg_optional + @Products) / (total_puchases + 1)),
                 total_puchases = total_puchases + 1,
-                sales_without = sales_without + @SalesWith - @PackageSales,
+                sales_without = sales_without + @SalesNoPackage,
                 sales_with = sales_with + @SalesWith
             where package_id = NEW.package_id;
         end if;
 
         -- Optional products MV
-        open products;
+        open cursor_prod;
         getProducts: LOOP
-            fetch products into iden, name, value;
-            set @MvProduct := (select count(*) from telco_app_db.OrderProduct Op
+            fetch cursor_prod into iden, name, value;
+
+            IF done THEN
+                LEAVE getProducts;
+            END IF;
+
+            set @MvProduct := (select count(*) from telco_app_db.MvProduct Op
                 where Op.product_id = iden);
             if @MvProduct = 0 then
                 insert into MvProduct (product_id, product_name, total_sales)
@@ -279,16 +264,16 @@ DELIMITER ;;
             else
                 update telco_app_db.MvProduct
                 set
-                    total_sales = total_sales + value * @Period
+                    total_sales = total_sales + (value * @Period)
                 where product_id = iden;
             end if;
         end loop getProducts;
-        close products;
+        close cursor_prod;
 
         -- Products Period MV
         if @MvSalesPeriod = 0 then
-            insert into telco_app_db.MvSalesPeriod(package_id, period_id, months, total_puchases)
-            values (NEW.package_id, NEW.period_id, @Period, 1);
+            insert into telco_app_db.MvSalesPeriod(package_id, period_id, months, total_puchases, name)
+            values (NEW.package_id, NEW.period_id, @Period, 1, @Package);
         else
             update telco_app_db.MvSalesPeriod
             set
@@ -452,7 +437,7 @@ CREATE TABLE `Schedule` (
   UNIQUE KEY `Schedule_id_uindex` (`id`),
   KEY `order_id` (`order_id`),
   CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `Order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -461,7 +446,7 @@ CREATE TABLE `Schedule` (
 
 LOCK TABLES `Schedule` WRITE;
 /*!40000 ALTER TABLE `Schedule` DISABLE KEYS */;
-INSERT INTO `Schedule` VALUES (28,34,NULL,NULL),(29,35,NULL,NULL),(30,36,NULL,NULL),(31,37,NULL,NULL),(32,38,NULL,NULL),(33,39,NULL,NULL),(34,40,NULL,NULL);
+INSERT INTO `Schedule` VALUES (28,34,NULL,NULL),(29,35,NULL,NULL),(30,36,NULL,NULL),(31,37,NULL,NULL),(32,38,NULL,NULL),(33,39,NULL,NULL),(34,40,NULL,NULL),(37,42,NULL,NULL);
 /*!40000 ALTER TABLE `Schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -582,4 +567,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-24 14:47:40
+-- Dump completed on 2022-01-24 21:21:38
