@@ -52,6 +52,23 @@ public class OrderService {
 		}
 	}
 	
+	public boolean setOrderStatusRejected(Integer orderId) {
+		try {
+			Order order = em.find(Order.class, orderId);
+			if(order.getStatus() == Order.PAID) {
+				return false;
+			}
+			
+			order.setStatus(Order.REJECTED);
+			
+			em.persist(order);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public List<Order> getListOfOrdersByUser(User user) { 
 		return em.createNamedQuery("Order.getByUserId", Order.class).setParameter(1, user.getUserId()).getResultList();
 	}

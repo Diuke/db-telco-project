@@ -66,7 +66,7 @@ public class RegisterController extends HttpServlet {
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale()); 
 		ctx.setVariable("hasLogin", false);
 		templateEngine.process(path, ctx, response.getWriter());
-
+ 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

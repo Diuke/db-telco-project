@@ -53,6 +53,13 @@
 			      	<button class="btn btn-primary" th:attr="'@click'=|paymentNotRandom('${order.getId()}', 0)|">Retry Payment (F)</button>
 			      	
 			      </td>
+			      
+			      <td style="color: red" th:if="${order.getStatus() == 2}">Payment Rejected</td>
+			      <td th:if="${order.getStatus() == 2}">
+			      	<button class="btn btn-primary" th:attr="'@click'=|paymentNotRandom('${order.getId()}', 1)|">Retry Payment (T)</button>
+			      	<button class="btn btn-primary" th:attr="'@click'=|paymentNotRandom('${order.getId()}', 0)|">Retry Payment (F)</button>
+			      	
+			      </td>
 			    </tr>
 			    
 			  </tbody>

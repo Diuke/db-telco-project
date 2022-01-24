@@ -18,6 +18,7 @@ import java.util.List;
 @NamedQuery(name="Order.getByUserId", query="SELECT o FROM Order o WHERE o.user.userId = ?1 ORDER BY o.id DESC")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
+	public static final int REJECTED = 2;
 	public static final int PAID = 1;
 	public static final int PENDING = 0;
 

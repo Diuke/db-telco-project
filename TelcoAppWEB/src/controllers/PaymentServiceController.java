@@ -107,7 +107,9 @@ public class PaymentServiceController extends HttpServlet {
 				operationSuccess = orderService.setOrderStatusPaid(orderId);
 				if(!operationSuccess) payStatus = false; 
 			} else {
-				userService.addOneFailedPaymentToUser(loggedInUser.getUserId());
+				operationSuccess = orderService.setOrderStatusRejected(orderId);
+				if(!operationSuccess) payStatus = false;
+				//userService.addOneFailedPaymentToUser(loggedInUser.getUserId());
 				
 				
 			}
