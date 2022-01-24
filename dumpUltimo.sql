@@ -82,11 +82,14 @@ DROP TABLE IF EXISTS `MvProduct`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `MvProduct` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `product_id` int DEFAULT NULL,
-  `product_name` varchar(80) DEFAULT NULL,
+  `product_name` varchar(256) DEFAULT NULL,
   `total_sales` float DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `MvProduct_id_uindex` (`id`),
   KEY `MvProduct_total_sales_index` (`total_sales` DESC)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +98,7 @@ CREATE TABLE `MvProduct` (
 
 LOCK TABLES `MvProduct` WRITE;
 /*!40000 ALTER TABLE `MvProduct` DISABLE KEYS */;
-INSERT INTO `MvProduct` VALUES (1,'STAR Channel',1440),(2,'Serie A',3000),(3,'SuperInternetProtection',478.8);
+INSERT INTO `MvProduct` VALUES (1,1,'STAR Channel',864),(2,2,'Serie A',1800),(3,3,'SuperInternetProtection',287.28);
 /*!40000 ALTER TABLE `MvProduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,14 +110,17 @@ DROP TABLE IF EXISTS `MvSales`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `MvSales` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `package_id` int DEFAULT NULL,
   `sales_with` float DEFAULT '0',
   `sales_without` float DEFAULT '0',
-  `total_puchases` int DEFAULT '0',
+  `total_purchases` int DEFAULT '0',
   `avg_optional` float DEFAULT '0',
-  `name` varchar(80) DEFAULT NULL,
-  KEY `sales_package_package_id_index` (`package_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `name` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `MvSales_id_uindex` (`id`),
+  KEY `MvSales_package_id_index` (`package_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +129,7 @@ CREATE TABLE `MvSales` (
 
 LOCK TABLES `MvSales` WRITE;
 /*!40000 ALTER TABLE `MvSales` DISABLE KEYS */;
-INSERT INTO `MvSales` VALUES (1,5710.08,982.8,4,2.5,'Super Internet');
+INSERT INTO `MvSales` VALUES (1,1,3454.56,503.28,2,3,'Super Internet');
 /*!40000 ALTER TABLE `MvSales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,13 +141,16 @@ DROP TABLE IF EXISTS `MvSalesPeriod`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `MvSalesPeriod` (
-  `package_id` int NOT NULL,
-  `period_id` int NOT NULL,
-  `total_puchases` int DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `package_id` int DEFAULT NULL,
+  `period_id` int DEFAULT NULL,
+  `total_purchases` int DEFAULT '0',
   `months` int DEFAULT NULL,
-  `name` varchar(80) DEFAULT NULL,
+  `name` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `MvSalesPeriod_id_uindex` (`id`),
   KEY `MvSalesPeriod_package_id_period_id_index` (`package_id`,`period_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +159,7 @@ CREATE TABLE `MvSalesPeriod` (
 
 LOCK TABLES `MvSalesPeriod` WRITE;
 /*!40000 ALTER TABLE `MvSalesPeriod` DISABLE KEYS */;
-INSERT INTO `MvSalesPeriod` VALUES (1,3,2,36,'Super Internet'),(1,2,2,24,'Super Internet');
+INSERT INTO `MvSalesPeriod` VALUES (1,1,3,2,36,'Super Internet');
 /*!40000 ALTER TABLE `MvSalesPeriod` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,13 +245,13 @@ DELIMITER ;;
 
         -- Sales MV
         if @MvSales = 0 then
-            insert into telco_app_db.MvSales(package_id, sales_with, sales_without, total_puchases, avg_optional, name)
+            insert into telco_app_db.MvSales(package_id, sales_with, sales_without, total_purchases, avg_optional, name)
             values (NEW.package_id, @SalesWith, @SalesNoPackage, 1, @Products, @Package);
         else
             update telco_app_db.MvSales
             set
-                avg_optional = ((total_puchases * avg_optional + @Products) / (total_puchases + 1)),
-                total_puchases = total_puchases + 1,
+                avg_optional = ((total_purchases * avg_optional + @Products) / (total_purchases + 1)),
+                total_purchases = total_purchases + 1,
                 sales_without = sales_without + @SalesNoPackage,
                 sales_with = sales_with + @SalesWith
             where package_id = NEW.package_id;
@@ -273,12 +282,12 @@ DELIMITER ;;
 
         -- Products Period MV
         if @MvSalesPeriod = 0 then
-            insert into telco_app_db.MvSalesPeriod(package_id, period_id, months, total_puchases, name)
+            insert into telco_app_db.MvSalesPeriod(package_id, period_id, months, total_purchases, name)
             values (NEW.package_id, NEW.period_id, @Period, 1, @Package);
         else
             update telco_app_db.MvSalesPeriod
             set
-               total_puchases = total_puchases + 1
+               total_purchases = total_purchases + 1
             where package_id = NEW.package_id and period_id = NEW.period_id;
         end if;
     end if;
@@ -455,7 +464,7 @@ CREATE TABLE `Schedule` (
   `id` int NOT NULL AUTO_INCREMENT,
   `order_id` int DEFAULT NULL,
   `activation` date DEFAULT NULL,
-  `deactivation` int DEFAULT NULL,
+  `deactivation` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Schedule_id_uindex` (`id`),
   KEY `order_id` (`order_id`),
@@ -590,4 +599,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-24 22:25:31
+-- Dump completed on 2022-01-24 23:19:26
