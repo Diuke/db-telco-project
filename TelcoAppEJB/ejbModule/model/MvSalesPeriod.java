@@ -28,7 +28,7 @@ public class MvSalesPeriod implements Serializable {
 	
 	private int months;
 	
-	@Column(name="total_puchases")
+	@Column(name="total_purchases")
 	private int totalPurchases;
 	
 	private String name;

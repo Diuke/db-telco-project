@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.27, for macos12.0 (arm64)
+-- MySQL dump 10.13  Distrib 8.0.22, for Linux (x86_64)
 --
--- Host: 6.tcp.ngrok.io    Database: telco_app_db
+-- Host: localhost    Database: telco_app_db
 -- ------------------------------------------------------
--- Server version	8.0.28
+-- Server version	8.0.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -70,7 +70,6 @@ CREATE TABLE `AudTable` (
 
 LOCK TABLES `AudTable` WRITE;
 /*!40000 ALTER TABLE `AudTable` DISABLE KEYS */;
-INSERT INTO `AudTable` VALUES ('user3',1127.76,'2022-01-23 13:50:49',4,1);
 /*!40000 ALTER TABLE `AudTable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +88,7 @@ CREATE TABLE `MvProduct` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `MvProduct_id_uindex` (`id`),
   KEY `MvProduct_total_sales_index` (`total_sales` DESC)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +97,7 @@ CREATE TABLE `MvProduct` (
 
 LOCK TABLES `MvProduct` WRITE;
 /*!40000 ALTER TABLE `MvProduct` DISABLE KEYS */;
-INSERT INTO `MvProduct` VALUES (1,1,'STAR Channel',864),(2,2,'Serie A',1800),(3,3,'SuperInternetProtection',287.28);
+INSERT INTO `MvProduct` VALUES (4,1,'STAR Channel',576),(5,2,'Serie A',600),(6,3,'SuperInternetProtection',95.76),(7,1,'STAR Channel',NULL),(8,2,'Serie A',300),(9,3,'SuperInternetProtection',47.88),(10,2,'Serie A',NULL),(11,1,'STAR Channel',NULL),(12,3,'SuperInternetProtection',47.88);
 /*!40000 ALTER TABLE `MvProduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +119,7 @@ CREATE TABLE `MvSales` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `MvSales_id_uindex` (`id`),
   KEY `MvSales_package_id_index` (`package_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +128,7 @@ CREATE TABLE `MvSales` (
 
 LOCK TABLES `MvSales` WRITE;
 /*!40000 ALTER TABLE `MvSales` DISABLE KEYS */;
-INSERT INTO `MvSales` VALUES (1,1,3454.56,503.28,2,3,'Super Internet');
+INSERT INTO `MvSales` VALUES (4,2,3503.76,NULL,2,2,'All-in-One'),(5,4,1440,NULL,2,1,NULL),(6,1,647.76,155.88,1,3,'Super Internet'),(7,10,360,360,1,0,'Ultra Package'),(8,3,299.88,NULL,1,2,NULL);
 /*!40000 ALTER TABLE `MvSales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +149,7 @@ CREATE TABLE `MvSalesPeriod` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `MvSalesPeriod_id_uindex` (`id`),
   KEY `MvSalesPeriod_package_id_period_id_index` (`package_id`,`period_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +158,7 @@ CREATE TABLE `MvSalesPeriod` (
 
 LOCK TABLES `MvSalesPeriod` WRITE;
 /*!40000 ALTER TABLE `MvSalesPeriod` DISABLE KEYS */;
-INSERT INTO `MvSalesPeriod` VALUES (1,1,3,2,36,'Super Internet');
+INSERT INTO `MvSalesPeriod` VALUES (4,2,2,2,24,'All-in-One'),(5,4,3,2,NULL,NULL),(6,1,1,1,12,'Super Internet'),(7,10,1,1,12,'Ultra Package'),(8,3,1,1,12,NULL);
 /*!40000 ALTER TABLE `MvSalesPeriod` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +186,7 @@ CREATE TABLE `Order` (
   CONSTRAINT `fk_order_package` FOREIGN KEY (`package_id`) REFERENCES `TelcoPackage` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_order_period` FOREIGN KEY (`period_id`) REFERENCES `Period` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,7 +195,7 @@ CREATE TABLE `Order` (
 
 LOCK TABLES `Order` WRITE;
 /*!40000 ALTER TABLE `Order` DISABLE KEYS */;
-INSERT INTO `Order` VALUES (34,2,2,2,'2022-01-09 23:51:25',1943.76,'2022-01-08 00:00:01',1),(35,2,1,1,'2022-01-19 16:36:51',599.88,'2022-01-28 00:00:01',1),(36,2,4,1,'2022-01-22 00:00:00',264,'2022-01-29 00:00:00',1),(37,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(38,6,1,2,'2022-01-22 00:00:00',1127.76,'2022-01-29 00:00:00',1),(39,2,2,1,'2022-01-22 12:22:14',744,'2022-01-29 00:00:00',1),(40,4,1,2,'2022-01-23 13:50:49',1127.76,'2022-01-06 00:00:00',2),(41,4,1,3,'2022-01-23 14:10:43',1727.28,'2022-01-15 00:00:00',0),(42,4,1,3,'2022-01-23 15:01:25',1727.28,'2022-01-15 00:00:00',1),(43,4,1,3,'2022-01-23 15:05:01',1727.28,'2022-01-15 00:00:00',1),(44,4,1,3,'2022-01-23 15:08:29',1727.28,'2022-01-15 00:00:00',1),(45,4,1,3,'2022-01-23 15:09:40',1727.28,'2022-01-15 00:00:00',1),(46,4,1,3,'2022-01-23 15:10:21',1727.28,'2022-01-15 00:00:00',1),(47,4,1,3,'2022-01-23 15:11:15',1727.28,'2022-01-15 00:00:00',1),(48,4,1,3,'2022-01-23 15:12:28',1727.28,'2022-01-15 00:00:00',1),(49,4,1,3,'2022-01-23 15:12:36',1727.28,'2022-01-15 00:00:00',0);
+INSERT INTO `Order` VALUES (54,2,2,2,'2022-01-24 23:37:41',1943.76,'2022-01-31 00:00:00',1),(55,2,4,3,'2022-01-24 23:38:03',720,'2022-01-29 00:00:00',1),(56,2,1,1,'2022-01-24 23:39:56',647.76,'2022-02-02 00:00:00',1),(57,2,2,2,'2022-01-24 23:42:07',1560,'2022-01-29 00:00:00',1),(58,2,4,3,'2022-01-24 23:42:39',720,'2022-01-28 00:00:00',1),(59,2,10,1,'2022-01-24 23:53:21',360,'2022-03-11 00:00:00',1),(60,2,3,1,'2022-01-24 23:54:31',299.88,'2022-02-02 00:00:00',1);
 /*!40000 ALTER TABLE `Order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -208,7 +207,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `OrderTrigger` AFTER UPDATE ON `Order` FOR EACH ROW begin
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `OrderTrigger` AFTER UPDATE ON `Order` FOR EACH ROW begin
     -- VARS AND DECLARATIONS
 
     declare name varchar(256);
@@ -217,8 +216,8 @@ DELIMITER ;;
     DECLARE done bool default FALSE;
 
     declare cursor_prod cursor for
-        (select p.id, p.name, p.value from telco_app_db.Product p, OrderProduct Op
-        where p.id = Op.product_id and Op.order_id = 43);
+        (select p.id, p.name, p.value from telco_app_db.Product p, telco_app_db.OrderProduct Op
+        where p.id = Op.product_id and Op.order_id = NEW.id);
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
@@ -343,7 +342,7 @@ CREATE TABLE `OrderProduct` (
 
 LOCK TABLES `OrderProduct` WRITE;
 /*!40000 ALTER TABLE `OrderProduct` DISABLE KEYS */;
-INSERT INTO `OrderProduct` VALUES (34,1),(35,1),(36,1),(37,1),(38,1),(39,1),(40,1),(41,1),(42,1),(43,1),(44,1),(45,1),(46,1),(47,1),(48,1),(49,1),(50,1),(51,1),(57,1),(58,1),(59,1),(34,2),(35,2),(37,2),(38,2),(40,2),(41,2),(42,2),(43,2),(44,2),(45,2),(46,2),(47,2),(48,2),(49,2),(51,2),(34,3),(41,3),(42,3),(43,3),(44,3),(45,3),(46,3),(47,3),(48,3),(49,3),(50,3),(51,3),(57,3),(58,3),(59,3);
+INSERT INTO `OrderProduct` VALUES (54,1),(55,1),(56,1),(58,1),(60,1),(54,2),(56,2),(57,2),(54,3),(56,3),(60,3);
 /*!40000 ALTER TABLE `OrderProduct` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,7 +468,7 @@ CREATE TABLE `Schedule` (
   UNIQUE KEY `Schedule_id_uindex` (`id`),
   KEY `order_id` (`order_id`),
   CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `Order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -478,7 +477,7 @@ CREATE TABLE `Schedule` (
 
 LOCK TABLES `Schedule` WRITE;
 /*!40000 ALTER TABLE `Schedule` DISABLE KEYS */;
-INSERT INTO `Schedule` VALUES (28,34,NULL,NULL),(29,35,NULL,NULL),(30,36,NULL,NULL),(31,37,NULL,NULL),(32,38,NULL,NULL),(33,39,NULL,NULL),(34,40,NULL,NULL),(37,42,NULL,NULL);
+INSERT INTO `Schedule` VALUES (40,54,'2022-01-31','2024-01-31'),(41,55,'2022-01-29','2025-01-29'),(42,56,'2022-02-02','2023-02-02'),(43,57,'2022-01-29','2024-01-29'),(44,58,'2022-01-28','2025-01-28'),(45,59,'2022-03-11','2023-03-11'),(46,60,'2022-02-02','2023-02-02');
 /*!40000 ALTER TABLE `Schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -573,6 +572,7 @@ CREATE TABLE `User` (
   `role` int NOT NULL,
   `insolvent` tinyint DEFAULT '0',
   `failed_payment` int NOT NULL DEFAULT '0',
+  `email` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   UNIQUE KEY `password_UNIQUE` (`password`),
@@ -586,7 +586,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (2,'user1pass','user1',1,0,0),(3,'user2pass','user2',1,0,0),(4,'user3pass','user3',1,1,0),(5,'user4pass','user4',1,0,0),(6,'user5pass','user5',1,0,0),(7,'user8pass','user8',1,0,2),(8,'admin','admin',2,0,0);
+INSERT INTO `User` VALUES (2,'user1pass','user1',1,1,2,'user1@test.com'),(3,'user2pass','user2',1,0,0,'user2@test.com'),(4,'user3pass','user3',1,1,0,'user3@test.com'),(5,'user4pass','user4',1,0,0,'user4@test.com'),(6,'user5pass','user5',1,0,0,'user5@test.com'),(7,'user8pass','user8',1,0,2,'user8@test.com'),(8,'admin','admin',2,0,0,'admin@test.com');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -599,4 +599,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-24 23:19:26
+-- Dump completed on 2022-01-24 23:55:56

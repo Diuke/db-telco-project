@@ -103,7 +103,9 @@ public class ConfirmController extends HttpServlet {
 		
 		if(productList != null) {
 			selectedProducts = apiService.getProductsById(productList); 
-		} 
+		} else {
+			selectedProducts = new ArrayList<Product>();
+		}
 		
 		Float pricePerMonthForProducts = 0f;
 		for(int i = 0; i < selectedProducts.size(); i++) {

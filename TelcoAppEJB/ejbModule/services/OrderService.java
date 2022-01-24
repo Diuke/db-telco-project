@@ -78,7 +78,7 @@ public class OrderService {
 		TelcoPackage orderPackage = em.find(TelcoPackage.class, packageId); 
 		Period orderPeriod = em.find(Period.class, periodId);
 		Date today = new Date();
-		String[] dateSplit = startingDate.split("-"); // [yyyy, mm, dd]
+		String[] dateSplit = startingDate.split("-"); // [yyyy, mm, dd] 
 		int day = Integer.parseInt(dateSplit[2]);
 		int month = Integer.parseInt(dateSplit[1]);
 		int year = Integer.parseInt(dateSplit[0]);
@@ -92,8 +92,6 @@ public class OrderService {
 		cal.set(Calendar.SECOND, 0);
 		Date startDate = cal.getTime();
 		
-		String[] productIdsSplit = productIds.split(","); //comma-separated ids of products
-		
 		System.out.println(total);
 		
 		try {				
@@ -106,11 +104,15 @@ public class OrderService {
 			newOrder.setSuscriptionStartDate(startDate);
 			newOrder.setStatus(Order.PENDING);
 			
-			for(String productId: productIdsSplit) {
-				Integer pId = Integer.parseInt(productId);
-				Product p = this.em.find(Product.class, pId);
-				newOrder.getProducts().add(p);
+			if(productIds != null) {
+				String[] productIdsSplit = productIds.split(","); //comma-separated ids of products
+				for(String productId: productIdsSplit) {
+					Integer pId = Integer.parseInt(productId);
+					Product p = this.em.find(Product.class, pId);
+					newOrder.getProducts().add(p);
+				}
 			}
+			
 			em.persist(newOrder);
 			em.flush();
 			Integer addedOrderId = newOrder.getId();

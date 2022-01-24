@@ -29,7 +29,7 @@ public class MvSales implements Serializable {
 	@Column(name="sales_without")
 	private float salesWithout;
 	
-	@Column(name="total_puchases")
+	@Column(name="total_purchases")
 	private int totalPurchases;
 	
 	@Column(name="avg_optional")

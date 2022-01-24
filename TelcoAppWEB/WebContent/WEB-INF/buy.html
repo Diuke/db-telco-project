@@ -149,7 +149,7 @@
 				},
 				
 				validate(){
-					this.valid = this.selectedPeriodId != null && this.selectedProducts.length > 0;
+					this.valid = this.selectedPeriodId != null && this.startingDate != null;
 					return this.valid;
 				},
 				
