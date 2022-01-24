@@ -25,11 +25,11 @@ public class Product implements Serializable {
 	private float value; 
 
 	//bi-directional many-to-many association to Product
-	@ManyToMany(mappedBy="products")
+	@ManyToMany(mappedBy="products", fetch = FetchType.LAZY)
 	private List<Order> orders;
 
 	//bi-directional many-to-many association to TelcoPackage
-	@ManyToMany(mappedBy="products")
+	@ManyToMany(mappedBy="products", fetch = FetchType.LAZY)
 	private List<TelcoPackage> telcoPackages;
 
 	public Product() {

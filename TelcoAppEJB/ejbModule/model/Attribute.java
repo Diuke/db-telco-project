@@ -25,7 +25,7 @@ public class Attribute implements Serializable {
 	private float quantity;
 
 	//bi-directional many-to-one association to Service
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Service service;
 
 	public Attribute() {

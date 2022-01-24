@@ -24,15 +24,15 @@ public class TelcoPackage implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="telcoPackage")
+	@OneToMany(mappedBy="telcoPackage", fetch = FetchType.LAZY)
 	private List<Order> orders;
 
 	//bi-directional many-to-one association to PackagePeriod
-	@OneToMany(mappedBy="telcoPackage", cascade = CascadeType.PERSIST) 
+	@OneToMany(mappedBy="telcoPackage", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) 
 	private List<PackagePeriod> packagePeriods;
 
 	//bi-directional many-to-many association to Product
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 		name="ProductPackage"
 		, joinColumns={
@@ -45,7 +45,7 @@ public class TelcoPackage implements Serializable {
 	private List<Product> products;
 
 	//bi-directional many-to-many association to Service
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 		name="ServicePackage"
 		, joinColumns={

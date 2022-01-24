@@ -21,11 +21,11 @@ public class Service implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Attribute
-	@OneToMany(mappedBy="service")
+	@OneToMany(mappedBy="service", fetch = FetchType.EAGER)
 	private List<Attribute> attributes;
 
 	//bi-directional many-to-many association to TelcoPackage
-	@ManyToMany(mappedBy="services")
+	@ManyToMany(mappedBy="services", fetch = FetchType.LAZY)
 	private List<TelcoPackage> telcoPackages;
 
 	public Service() {

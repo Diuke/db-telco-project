@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -18,9 +20,17 @@ public class Schedule implements Serializable {
 	private int id;
 
 	//bi-directional many-to-one association to Order
-	@ManyToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	private Order order;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="activation") 
+	private Date activation;
 
+	@Temporal(TemporalType.DATE)
+	@Column(name="deactivation") 
+	private Date deactivation;
+	
 	public Schedule() {
 	}
 
@@ -38,6 +48,22 @@ public class Schedule implements Serializable {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+	
+	public Date getActivation() {
+		return this.activation;
+	}
+
+	public void setActivation(Date activation) {
+		this.activation = activation;
+	}
+	
+	public Date getDeactivation() {
+		return this.deactivation;
+	}
+
+	public void setDeactivation(Date deactivation) {
+		this.deactivation = deactivation;
 	}
 
 }

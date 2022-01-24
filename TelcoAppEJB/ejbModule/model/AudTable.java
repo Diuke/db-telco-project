@@ -27,7 +27,7 @@ public class AudTable implements Serializable {
 	private Date lastRejection;
 
 	//bi-directional many-to-one association to User
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 

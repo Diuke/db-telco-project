@@ -38,21 +38,21 @@ public class Order implements Serializable {
 	private float total;
 
 	//bi-directional many-to-one association to Period
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Period period;
 
 	//bi-directional many-to-one association to TelcoPackage
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="package_id")
 	private TelcoPackage telcoPackage;
 
 	//bi-directional many-to-one association to User
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 
 	//bi-directional many-to-many association to Order
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 		name="OrderProduct"
 		, joinColumns={
@@ -65,7 +65,7 @@ public class Order implements Serializable {
 	private List<Product> products;
 
 	//bi-directional many-to-one association to Schedule
-	@OneToMany(mappedBy="order")
+	@OneToMany(mappedBy="order", fetch = FetchType.LAZY)
 	private List<Schedule> schedules;
 
 	public Order() {

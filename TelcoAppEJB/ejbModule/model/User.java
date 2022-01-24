@@ -35,11 +35,11 @@ public class User implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to AudTable
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
 	private List<AudTable> audTables;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
 	private List<Order> orders;
 
 	public User() {

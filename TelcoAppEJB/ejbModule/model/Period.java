@@ -21,11 +21,11 @@ public class Period implements Serializable {
 	private int months;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="period")
+	@OneToMany(mappedBy="period", fetch = FetchType.LAZY)
 	private List<Order> orders;
 
 	//bi-directional many-to-one association to PackagePeriod
-	@OneToMany(mappedBy="period")
+	@OneToMany(mappedBy="period", fetch = FetchType.LAZY)
 	private List<PackagePeriod> packagePeriods;
 
 	public Period() {

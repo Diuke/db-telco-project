@@ -29,6 +29,21 @@ public class OrderService {
 			System.out.println(order);
 			
 			order.setStatus(Order.PAID);
+			Schedule newSchedule = new Schedule();
+			Date activationDate = order.getSuscriptionStartDate();
+			newSchedule.setActivation(activationDate);
+			
+			int months = order.getPeriod().getMonths();
+			Date referenceDate = activationDate;
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(referenceDate); 
+			c.add(Calendar.MONTH, months);
+			
+			Date deactivationDate = c.getTime();
+			newSchedule.setDeactivation(deactivationDate);
+			newSchedule.setOrder(order);
+			
+			em.persist(newSchedule);
 			em.persist(order);
 			return true;
 		} catch (Exception e) {
