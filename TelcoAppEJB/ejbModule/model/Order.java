@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name = "Order", schema = "telco_app_db")
 @NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 @NamedQuery(name="Order.getByUserId", query="SELECT o FROM Order o WHERE o.user.userId = ?1 ORDER BY o.id DESC")
+@NamedQuery(name="Order.getSuspendedOrders", query="SELECT o FROM Order o WHERE o.status = 2 OR o.status = 0")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final int REJECTED = 2;
@@ -65,7 +66,6 @@ public class Order implements Serializable {
 		)
 	private List<Product> products;
 
-	//bi-directional many-to-one association to Schedule
 	@OneToMany(mappedBy="order", fetch = FetchType.LAZY)
 	private List<Schedule> schedules;
 
@@ -166,5 +166,6 @@ public class Order implements Serializable {
 
 		return schedule;
 	}
+
 
 }

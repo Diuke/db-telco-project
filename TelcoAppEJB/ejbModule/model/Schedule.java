@@ -19,7 +19,6 @@ public class Schedule implements Serializable {
 	@Id
 	private int id;
 
-	//bi-directional many-to-one association to Order
 	@OneToOne(fetch = FetchType.EAGER)
 	private Order order;
 	

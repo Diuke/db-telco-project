@@ -29,5 +29,17 @@ public class SalesReportService {
 		return em.createNamedQuery("mvSalesPeriod.findAll", MvSalesPeriod.class).getResultList();
 	}
 	
+	public List<User> getInsolventUsers(){		
+		return em.createNamedQuery("User.getInsolvent", User.class).getResultList();
+	}
+	
+	public List<AudTable> getAlerts(){		
+		return em.createNamedQuery("AudTable.findAll", AudTable.class).getResultList();
+	}
+
+	public List<Order> getSuspendedOrders(){		
+		return em.createNamedQuery("Order.getSuspendedOrders", Order.class).getResultList();
+	}
+	
 	
 }

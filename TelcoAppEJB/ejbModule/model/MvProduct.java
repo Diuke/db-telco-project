@@ -13,16 +13,27 @@ import java.util.List;
 @Table(name = "MvProduct", schema = "telco_app_db")
 @NamedQuery(name="mvProduct.findAll", query="SELECT p FROM MvProduct p")
 
-public class MvProduct implements Serializable {
+public class MvProduct implements Serializable { 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int id;
 	
 	@Column(name="product_name")
 	private String productName;
 	
+	@Column(name="product_id")
+	private int productId;
+	
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) { 
+		this.productId = productId;
+	}
+
 	@Column(name="total_sales")
 	private float totalSales;
 

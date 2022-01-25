@@ -62,10 +62,13 @@ public class SalesReportController extends HttpServlet {
 			response.sendRedirect("/TelcoAppEmployeeWEB/Login");
 			return;
 		} 
-		
+		 
 		List<MvSales> salesReport = salesReportService.getSalesReport();  
-		List<MvProduct> productReport = salesReportService.getProductSalesReport();
-		List<MvSalesPeriod> salesPeriodReport = salesReportService.getSalesPeriodReport();  
+		List<MvProduct> productReport = salesReportService.getProductSalesReport(); 
+		List<MvSalesPeriod> salesPeriodReport = salesReportService.getSalesPeriodReport();
+		List<User> insolventUsers = salesReportService.getInsolventUsers();
+		List<AudTable> alerts = salesReportService.getAlerts();
+		List<Order> suspendedOrders = salesReportService.getSuspendedOrders();
 
 		String path = "/WEB-INF/salesReport.html";
 		ServletContext servletContext = getServletContext(); 
@@ -74,7 +77,10 @@ public class SalesReportController extends HttpServlet {
 		ctx.setVariable("salesReport", salesReport); 
 		ctx.setVariable("productReport", productReport);
 		ctx.setVariable("salesPeriodReport", salesPeriodReport); 
-		ctx.setVariable("loggedInUser", loggedInUser);   
+		ctx.setVariable("insolventUsers", insolventUsers); 
+		ctx.setVariable("alerts", alerts);
+		ctx.setVariable("suspendedOrders", suspendedOrders); 
+		ctx.setVariable("loggedInUser", loggedInUser);    
 		templateEngine.process(path, ctx, response.getWriter());
 
 	}

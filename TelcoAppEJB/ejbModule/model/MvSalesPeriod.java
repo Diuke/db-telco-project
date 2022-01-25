@@ -17,7 +17,7 @@ public class MvSalesPeriod implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int id;
 	
 	@Column(name="package_id")
@@ -36,8 +36,8 @@ public class MvSalesPeriod implements Serializable {
 	public MvSalesPeriod() {
 	}
 
-	public int getId() {
-		return id;
+	public int getId() {  
+		return id; 
 	}
 
 	public void setId(int id) {
