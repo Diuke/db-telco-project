@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "MvProduct", schema = "telco_app_db")
-@NamedQuery(name="mvProduct.findAll", query="SELECT p FROM MvProduct p")
+@NamedQuery(name="mvProduct.findAll", query="SELECT p FROM MvProduct p ORDER BY p.totalSales DESC")
 
 public class MvProduct implements Serializable { 
 	private static final long serialVersionUID = 1L;
