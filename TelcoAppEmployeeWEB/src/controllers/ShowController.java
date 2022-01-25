@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintStream;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
@@ -17,39 +16,40 @@ import org.thymeleaf.TemplateEngine;
 import model.*;
 import services.ApiService;
 
+import java.util.HashMap;
 import java.util.List;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-
+   
 /**
- * Servlet implementation class HomepageController
+ * Servlet implementation class HomepageController 
  */
-@WebServlet("/home")
-public class HomepageController extends HttpServlet {
-	 
+@WebServlet("/show")
+public class ShowController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine templateEngine;
 	@EJB(name = "services/ApiService")
 	private ApiService apiService;
 
-	public HomepageController() {
+	public ShowController() {
 		super();
-		// TODO Auto-generated constructor stub  
+		// TODO Auto-generated constructor stub
 	}
-	 
-	public void init() throws ServletException {  
+	
+	public void init() throws ServletException {
 		ServletContext servletContext = getServletContext();
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
 		templateResolver.setTemplateMode(TemplateMode.HTML);
 		this.templateEngine = new TemplateEngine();
 		this.templateEngine.setTemplateResolver(templateResolver);
-		templateResolver.setSuffix(".html"); 
+		templateResolver.setSuffix(".html");
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {  
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException { 
 		
 		User loggedInUser = null;
 		HttpSession session = request.getSession();  
@@ -61,16 +61,22 @@ public class HomepageController extends HttpServlet {
 			return;
 		}
 		
-		List<TelcoPackage> packages = apiService.getListOfServicePackages();
+		Integer packageId = null;
+		if (request.getParameterMap().containsKey("packageId") && request.getParameter("packageId") != "" && !request.getParameter("packageId").isEmpty()) {
+			packageId = Integer.parseInt(request.getParameter("packageId"));
+		}
+		
+		TelcoPackage packageDetails = null;
+		if(packageId != null) {
+			packageDetails = apiService.getPackageById(packageId);  
+		} 
 
-		String path = "/index.html";
-		ServletContext servletContext = getServletContext();
+		String path = "/WEB-INF/show.html";     
+		ServletContext servletContext = getServletContext(); 
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-		ctx.setVariable("packages", packages);
-		ctx.setVariable("loggedInUser", loggedInUser);   
-		  
-		templateEngine.process(path, ctx, response.getWriter()); 
-
+		ctx.setVariable("packageDetails", packageDetails); 
+		ctx.setVariable("loggedInUser", loggedInUser);
+		templateEngine.process(path, ctx, response.getWriter());
 
 	}
 

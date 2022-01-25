@@ -5,6 +5,16 @@
 	cursor: pointer;
 }
 
+.home-package-buttons{
+	border: 1px solid black;
+	border-radius: 5px;
+	width: 300px;
+	margin: 8px;
+	padding: 3px;
+	cursor: pointer;
+	text-align: center;
+}
+
 .formActive{
 	background-color: #eeeeec;
 }
