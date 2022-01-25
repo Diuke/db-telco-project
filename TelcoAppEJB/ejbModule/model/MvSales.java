@@ -23,6 +23,9 @@ public class MvSales implements Serializable {
 	@Column(name="package_id")
 	private int packageId;
 	
+	@Column(name="name")
+	private String packageName;
+	
 	@Column(name="sales_with")
 	private float salesWith;
 	
@@ -65,7 +68,7 @@ public class MvSales implements Serializable {
 	public float getSalesWithout() {
 		return salesWithout;
 	}
-
+ 
 	public void setSalesWithout(float salesWithout) {
 		this.salesWithout = salesWithout;
 	}
@@ -77,7 +80,7 @@ public class MvSales implements Serializable {
 	public void setTotalPurchases(int totalPurchases) {
 		this.totalPurchases = totalPurchases;
 	}
-
+ 
 	public float getAverageOptional() {
 		return averageOptional;
 	}
@@ -86,6 +89,14 @@ public class MvSales implements Serializable {
 		this.averageOptional = averageOptional;
 	}
 
+	public String getPackageName() {
+		return packageName;
+	}
+
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
+	 
 	
 
 	

@@ -54,7 +54,7 @@ public class AudTable implements Serializable {
 		return this.email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) { 
 		this.email = email;
 	}
 
