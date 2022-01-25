@@ -1,0 +1,16 @@
+if NEW.status = 1 and OLD.status = 2 then
+        set @failed_payment := (select failed_payment from telco_app_db.User u where u.user_id = NEW.user_id);
+        set @AudTable := (select count(*) from telco_app_db.AudTable AT where AT.user_id = new.user_id);
+        update telco_app_db.User
+            set failed_payment = failed_payment - 1
+        where user_id = NEW.user_id;
+        if @failed_payment = 1 then
+            update telco_app_db.User
+                set insolvent = 0
+            where user_id = NEW.user_id;
+            if @AudTable != 0 then
+                delete from telco_app_db.AudTable AT
+                    where AT.user_id = NEW.user_id;
+            end if;
+        end if;
+    end if;
