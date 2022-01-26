@@ -74,6 +74,8 @@ public class SalesReportController extends HttpServlet {
 		ServletContext servletContext = getServletContext(); 
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		
+		System.out.println(productReport);
+		
 		ctx.setVariable("salesReport", salesReport); 
 		ctx.setVariable("productReport", productReport);
 		ctx.setVariable("salesPeriodReport", salesPeriodReport); 

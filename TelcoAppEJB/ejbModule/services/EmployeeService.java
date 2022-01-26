@@ -37,18 +37,25 @@ public class EmployeeService {
 			//return em.createNamedQuery("TelcoPackage.findAll", TelcoPackage.class).getResultList();
 			String[] periodsAndValuesList = periodsAndValues.split(",");
 			String[] servicesList = services.split(",");
-			String[] productsList = products.split(",");
+			String[] productsList = null;
+			if(products != null) {
+				productsList = products.split(",");
+			}
+			
 			
 			TelcoPackage packageToCreate = new TelcoPackage();
 			packageToCreate.setName(packageName);
 			
 			Integer packageId = packageToCreate.getId();
 			
-			for(String productId: productsList) {
-				Integer pId = Integer.parseInt(productId);
-				Product p = em.find(Product.class, pId);
-				packageToCreate.getProducts().add(p);
+			if(productsList != null) {
+				for(String productId: productsList) {
+					Integer pId = Integer.parseInt(productId);
+					Product p = em.find(Product.class, pId);
+					packageToCreate.getProducts().add(p);
+				}
 			}
+			
 			
 			for(String serviceId: servicesList) {
 				Integer sId = Integer.parseInt(serviceId);
